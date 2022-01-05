@@ -5,20 +5,20 @@ clear ; clc; close all;
 % 矩形脉冲信号在 Matlab 中用 rectpuls 函数表示，其调用方式为：
 % y = rectpulse(t, width)
 % 用以产生一个幅度为 1，宽度为 width 以 t = 0 为对称中心的矩形脉冲波。Width 的默认值为 1。
-t = 0:0.001:4;
-T = 1;
-yt = rectpuls(t-2*T, 2*T);
+t1 = 0:0.001:4;
+T1 = 1;
+yt1 = rectpuls(t1-2*T1, 2*T1);
 figure(1);
-plot(t, yt)
+plot(t1, yt1)
 axis([0, 4, 0, 1.2]);
 
 %% 使用 Matlab 绘制信号 (y (t) = frac {sin [pi (t-2)]}{pi (t-2)}) 的波形 
 %信号 y (t) = sinc (t-2)，可以使用 sinc 函数表示
-t = -4:0.001:8
-t1 = t-2;
-y = sinc(t1);
+t2 = -4:0.001:8
+t2_1 = t2-2;
+y2 = sinc(t2_1);
 figure(2);
-plot(t, y);
+plot(t2, y2);
 xlabel('t');
 ylabel('y(t)');
 axis([-4, 8, -0.4, 1.0]),grid on;
@@ -36,18 +36,18 @@ axis([-4, 8, -0.4, 1.0]),grid on;
 % 三角波信号的产生可以通过函数 tripuls 实现。
 
 
-t = -3:0.001:3;
+t3 = -3:0.001:3;
 width = 4;
 skew = 0.5;
  
-y = tripuls(t, width, skew);
+y3 = tripuls(t3, width, skew);
 figure(3);
-subplot(2,1,1), plot(t, y)
+subplot(2,1,1), plot(t3, y3)
  
 xlabel('t'),ylabel('y(t)')
 grid
-y1 = tripuls(2-2*t, width, skew);
-subplot(212),plot(t, y1)
+y3_1 = tripuls(2-2*t3, width, skew);
+subplot(212),plot(t3, y3_1)
 xlabel('t'),ylabel('y(2-2t)')
 grid
 
@@ -57,13 +57,13 @@ grid
 % (x(k) = delta(k) + 2delta(k-1) + 2delta(k-2) + delta(k-3) + delta(k-4))
 % (h(k) = 3delta(k) + 2delta(k-1) + delta(k-2))
 
-x = [1 2 2 1 1];
-h = [3 2 1];
-y = conv(x, h);
+x4 = [1 2 2 1 1];
+h4 = [3 2 1];
+y4 = conv(x4, h4);
 figure(4);
-subplot(311),stem(0:4, x, 'filled'),axis([-1 7 0 15]),ylabel('x(k)')
-subplot(312),stem(0:2, h, 'filled'),axis([-1 7 0 15]),ylabel('h(k)')
-subplot(313),stem(0:6, y, 'filled'),axis([-1 7 0 15]),ylabel('y(k) = x(k)*h(k)')
+subplot(311),stem(0:4, x4, 'filled'),axis([-1 7 0 15]),ylabel('x(k)')
+subplot(312),stem(0:2, h4, 'filled'),axis([-1 7 0 15]),ylabel('h(k)')
+subplot(313),stem(0:6, y4, 'filled'),axis([-1 7 0 15]),ylabel('y(k) = x(k)*h(k)')
 
 %%  pulstran
 % MATLAB 生成脉冲序列：pulstran 函数使用简记：
@@ -85,20 +85,35 @@ subplot(313),stem(0:6, y, 'filled'),axis([-1 7 0 15]),ylabel('y(k) = x(k)*h(k)')
 % 该脉冲序列定义为具有 50 kHz 的采样率、10 ms 的脉冲序列长度和 1 kHz 的脉冲重复率。
 % T 指定脉冲序列的采样时刻。D 在第一列中指定每个脉冲重复的延迟，在第二列中指定每个重复的可选衰减。
 % 要构造该脉冲序列，请将 gauspuls 函数的名称以及附加参数（用于指定带宽为 50% 的 10 kHz 高斯脉冲）传递给 pulstran。
-T = 0:1/50e3:10e-3;
-D = [0:1/1e3:10e-3;0.8.^(0:10)]';
+T1 = 0:1/50e3:10e-3;
+D1 = [0:1/1e3:10e-3;0.8.^(0:10)]';
 % https://ww2.mathworks.cn/help/signal/gs/the-pulstran-function.html
-Y = pulstran(T,D,'gauspuls',10e3,0.5);
+Y1 = pulstran(T1,D1,'gauspuls',10e3,0.5);
 figure(5);
 subplot(2,1,1);
-plot(T,Y);
-xlabel 'Time (s)', 
+plot(T1,Y1);
+xlabel 'Time (s)',
 ylabel 'Periodic Gaussian pulse';
 
 % https://blog.csdn.net/wwjra/article/details/7728892
-t=0:0.001:8;
-d=[0:1:8;0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8]';
-y=pulstran(t-0.25,d,'gauspuls',10,0.5);
+t5=0:0.001:8;
+d5=[0:1:8;0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8]';
+y5=pulstran(t5-0.25,d5,'gauspuls',10,0.5);
 subplot(2,1,2);
-plot(t,y);
+plot(t5,y5);
 grid;
+
+
+
+% pulstran函数，func=triplus
+% 生成不对称三角波，重复频率3Hz,三角宽度0.1s,信号长度1s,采样频率1KHz.
+figure(6);
+t6 = 0:1e-3:1;  %设置采样频率为1KHz
+d6 = 0:1/3:1;   %设置信号重复频率为3Hz，即周期为1/3
+subplot(2,1,1);
+y6 = pulstran(t6,d6,'tripuls',0.1, 1);
+plot(t6,y6);
+subplot(2,1,2);
+y6_1 = pulstran(t6,d6,'tripuls',0.1, 0);
+plot(t6,y6_1);  %三角波，p6:有效部分宽度；p6_1:信号最大部分偏移(0为对称的)
+
