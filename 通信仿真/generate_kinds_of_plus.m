@@ -1,10 +1,10 @@
 %https://www.cxyzjd.com/article/wangh0802/79077901
 clear ; clc; close all;
 
-%% ÊÔÓÃ Matlab Éú³ÉÒ»¸ö·ù¶ÈÎª 1£¬ÒÔ t = 2T Îª¶Ô³ÆÖÐÐÄµÄ¾ØÐÎÂö³åÐÅºÅ y (t)
-% ¾ØÐÎÂö³åÐÅºÅÔÚ Matlab ÖÐÓÃ rectpuls º¯Êý±íÊ¾£¬Æäµ÷ÓÃ·½Ê½Îª£º
+%% è¯•ç”¨ Matlab ç”Ÿæˆä¸€ä¸ªå¹…åº¦ä¸º 1ï¼Œä»¥ t = 2T ä¸ºå¯¹ç§°ä¸­å¿ƒçš„çŸ©å½¢è„‰å†²ä¿¡å· y (t)
+% çŸ©å½¢è„‰å†²ä¿¡å·åœ¨ Matlab ä¸­ç”¨ rectpuls å‡½æ•°è¡¨ç¤ºï¼Œå…¶è°ƒç”¨æ–¹å¼ä¸ºï¼š
 % y = rectpulse(t, width)
-% ÓÃÒÔ²úÉúÒ»¸ö·ù¶ÈÎª 1£¬¿í¶ÈÎª width ÒÔ t = 0 Îª¶Ô³ÆÖÐÐÄµÄ¾ØÐÎÂö³å²¨¡£Width µÄÄ¬ÈÏÖµÎª 1¡£
+% ç”¨ä»¥äº§ç”Ÿä¸€ä¸ªå¹…åº¦ä¸º 1ï¼Œå®½åº¦ä¸º width ä»¥ t = 0 ä¸ºå¯¹ç§°ä¸­å¿ƒçš„çŸ©å½¢è„‰å†²æ³¢ã€‚Width çš„é»˜è®¤å€¼ä¸º 1ã€‚
 t1 = 0:0.001:4;
 T1 = 1;
 yt1 = rectpuls(t1-2*T1, 2*T1);
@@ -12,8 +12,8 @@ figure(1);
 plot(t1, yt1)
 axis([0, 4, 0, 1.2]);
 
-%% Ê¹ÓÃ Matlab »æÖÆÐÅºÅ (y (t) = frac {sin [pi (t-2)]}{pi (t-2)}) µÄ²¨ÐÎ 
-%ÐÅºÅ y (t) = sinc (t-2)£¬¿ÉÒÔÊ¹ÓÃ sinc º¯Êý±íÊ¾
+%% ä½¿ç”¨ Matlab ç»˜åˆ¶ä¿¡å· (y (t) = frac {sin [pi (t-2)]}{pi (t-2)}) çš„æ³¢å½¢ 
+%ä¿¡å· y (t) = sinc (t-2)ï¼Œå¯ä»¥ä½¿ç”¨ sinc å‡½æ•°è¡¨ç¤º
 t2 = -4:0.001:8
 t2_1 = t2-2;
 y2 = sinc(t2_1);
@@ -23,17 +23,17 @@ xlabel('t');
 ylabel('y(t)');
 axis([-4, 8, -0.4, 1.0]),grid on;
 
-%% ÔÚ matlab ÖÐ£¬Ìá¹©ÁËÒ»Ð©²úÉú³£ÓÃÐÅºÅµÄ matlab º¯Êý£¬Èç±í 3.1 ËùÊ¾¡£·Ö±ðÓÃÓÚ²úÉúÈý½Ç²¨¡¢·½²¨¡¢sinc º¯ÊýµÈÐÅºÅµÄ²¨ÐÎ¡£
-% ±í 3.1 ³£ÓÃÐÅºÅµÄ matlab ²úÉúº¯Êý
-% sawtooth	²úÉú¾â³Ý²¨ºÍÈý½Ç²¨	pulstran	²úÉú³å»÷´®
-% square	²úÉú·½²¨	rectpuls	²úÉú·ÇÖÜÆÚ·½²¨
-% sinc	²úÉú sinc º¯Êý²¨ÐÎ	tripuls	²úÉú·ÇÖÜÆÚÈý½Ç²¨
-% chirp	²úÉúµ÷ÆµÓàÏÒÐÅºÅ	diric	²úÉú Dirichlet »òÖÜÆÚ sinc
-% gauspuls	²úÉú¸ßË¹ÕýÏÒÂö³åÐÅºÅ	gmonopuls	²úÉú¸ßË¹µ¥Âö³åÐÅºÅ
+%% åœ¨ matlab ä¸­ï¼Œæä¾›äº†ä¸€äº›äº§ç”Ÿå¸¸ç”¨ä¿¡å·çš„ matlab å‡½æ•°ï¼Œå¦‚è¡¨ 3.1 æ‰€ç¤ºã€‚åˆ†åˆ«ç”¨äºŽäº§ç”Ÿä¸‰è§’æ³¢ã€æ–¹æ³¢ã€sinc å‡½æ•°ç­‰ä¿¡å·çš„æ³¢å½¢ã€‚
+% è¡¨ 3.1 å¸¸ç”¨ä¿¡å·çš„ matlab äº§ç”Ÿå‡½æ•°
+% sawtooth	äº§ç”Ÿé”¯é½¿æ³¢å’Œä¸‰è§’æ³¢	pulstran	äº§ç”Ÿå†²å‡»ä¸²
+% square	äº§ç”Ÿæ–¹æ³¢	rectpuls	äº§ç”Ÿéžå‘¨æœŸæ–¹æ³¢
+% sinc	äº§ç”Ÿ sinc å‡½æ•°æ³¢å½¢	tripuls	äº§ç”Ÿéžå‘¨æœŸä¸‰è§’æ³¢
+% chirp	äº§ç”Ÿè°ƒé¢‘ä½™å¼¦ä¿¡å·	diric	äº§ç”Ÿ Dirichlet æˆ–å‘¨æœŸ sinc
+% gauspuls	äº§ç”Ÿé«˜æ–¯æ­£å¼¦è„‰å†²ä¿¡å·	gmonopuls	äº§ç”Ÿé«˜æ–¯å•è„‰å†²ä¿¡å·
 
 
-%% ±à³ÌÉú³ÉÒ»¸ö×î´ó·ù¶ÈÎª 1£¬¿í¶ÈÎª 4 µÄÈý½Ç²¨º¯Êý y (t)£¬º¯ÊýÖµµÄ·ÇÁãÖµÎª (-2, 2)£¬²¢»­³ö y (2 - 2t) µÄ²¨ÐÎ¡£
-% Èý½Ç²¨ÐÅºÅµÄ²úÉú¿ÉÒÔÍ¨¹ýº¯Êý tripuls ÊµÏÖ¡£
+%% ç¼–ç¨‹ç”Ÿæˆä¸€ä¸ªæœ€å¤§å¹…åº¦ä¸º 1ï¼Œå®½åº¦ä¸º 4 çš„ä¸‰è§’æ³¢å‡½æ•° y (t)ï¼Œå‡½æ•°å€¼çš„éžé›¶å€¼ä¸º (-2, 2)ï¼Œå¹¶ç”»å‡º y (2 - 2t) çš„æ³¢å½¢ã€‚
+% ä¸‰è§’æ³¢ä¿¡å·çš„äº§ç”Ÿå¯ä»¥é€šè¿‡å‡½æ•° tripuls å®žçŽ°ã€‚
 
 
 t3 = -3:0.001:3;
@@ -53,7 +53,7 @@ grid
 
 
 
-%% ¼ÆËãÏÂÃæÁ½¸öÐòÁÐµÄ¾í»ý
+%% è®¡ç®—ä¸‹é¢ä¸¤ä¸ªåºåˆ—çš„å·ç§¯
 % (x(k) = delta(k) + 2delta(k-1) + 2delta(k-2) + delta(k-3) + delta(k-4))
 % (h(k) = 3delta(k) + 2delta(k-1) + delta(k-2))
 
@@ -66,26 +66,26 @@ subplot(312),stem(0:2, h4, 'filled'),axis([-1 7 0 15]),ylabel('h(k)')
 subplot(313),stem(0:6, y4, 'filled'),axis([-1 7 0 15]),ylabel('y(k) = x(k)*h(k)')
 
 %%  pulstran
-% MATLAB Éú³ÉÂö³åÐòÁÐ£ºpulstran º¯ÊýÊ¹ÓÃ¼ò¼Ç£º
+% MATLAB ç”Ÿæˆè„‰å†²åºåˆ—ï¼špulstran å‡½æ•°ä½¿ç”¨ç®€è®°ï¼š
 % 
-% pulstran º¯ÊýÓÃÀ´Éú³ÉÂö³åÐòÁÐ£¬ÆäÖ÷Òªµ÷ÓÃÓï·¨ÈçÏÂ£º
+% pulstran å‡½æ•°ç”¨æ¥ç”Ÿæˆè„‰å†²åºåˆ—ï¼Œå…¶ä¸»è¦è°ƒç”¨è¯­æ³•å¦‚ä¸‹ï¼š
 % 
-% 1.pulstran£¨t,d,¡®func¡¯,p1,p2,???£©£ºÉú³ÉÒ»¸ö»ùÓÚÁ¬Ðøº¯Êý func Ñù±¾µÄÂö³åÐòÁÐ¡£
-% ÆäÖÐ t ÎªÊ±¼äÖá£¬Ò»°ãÊÇÒ»¸öÒ»Î¬Êý×é¡£d Îª²ÉÑù¼ä¸ô£¬¿ÉÒÔÊÇÁ½ÁÐ£¬µÚÒ»ÁÐ¶ÔÓ¦Æ«ÒÆÁ¿£¬µÚ¶þÁÐ¶ÔÓ¦ÔöÒæÁ¿¡£
-% pulstran ¶Ô func ½øÐÐ length£¨d£©´ÎµÄ¼ÆËã£¬²¢½«¸÷´ÎµÄ½á¹ûÇóºÍ£ºy=func (t=d (1))+func (t=d (2))+???¡£
-% ÆäÖÐ func ¿ÉÒÔÓÐÈçÏÂ 3 ÖÖÈ¡Öµ£ºgauspuls£¬Éú³ÉÒ»¸ö¸ßË¹µ÷ÖÆ£¨Gaussian-modulated£©µÄÕýÏÒÂö³å£»
-% reectpuls£¬Éú³ÉÒ»¸ö²ÉÑù·ÇÖÜÆÚ¾ØÐÎ²¨£»
-% tripuls£¬Éú³ÉÒ»¸ö²ÉÑù·ÇÖÜÆÚÈý½Ç²¨¡£p1£¬p2£¬???ÊÇ¸½¼Ó²ÎÊý¡£
+% 1.pulstranï¼ˆt,d,â€˜funcâ€™,p1,p2,???ï¼‰ï¼šç”Ÿæˆä¸€ä¸ªåŸºäºŽè¿žç»­å‡½æ•° func æ ·æœ¬çš„è„‰å†²åºåˆ—ã€‚
+% å…¶ä¸­ t ä¸ºæ—¶é—´è½´ï¼Œä¸€èˆ¬æ˜¯ä¸€ä¸ªä¸€ç»´æ•°ç»„ã€‚d ä¸ºé‡‡æ ·é—´éš”ï¼Œå¯ä»¥æ˜¯ä¸¤åˆ—ï¼Œç¬¬ä¸€åˆ—å¯¹åº”åç§»é‡ï¼Œç¬¬äºŒåˆ—å¯¹åº”å¢žç›Šé‡ã€‚
+% pulstran å¯¹ func è¿›è¡Œ lengthï¼ˆdï¼‰æ¬¡çš„è®¡ç®—ï¼Œå¹¶å°†å„æ¬¡çš„ç»“æžœæ±‚å’Œï¼šy=func (t=d (1))+func (t=d (2))+???ã€‚
+% å…¶ä¸­ func å¯ä»¥æœ‰å¦‚ä¸‹ 3 ç§å–å€¼ï¼šgauspulsï¼Œç”Ÿæˆä¸€ä¸ªé«˜æ–¯è°ƒåˆ¶ï¼ˆGaussian-modulatedï¼‰çš„æ­£å¼¦è„‰å†²ï¼›
+% reectpulsï¼Œç”Ÿæˆä¸€ä¸ªé‡‡æ ·éžå‘¨æœŸçŸ©å½¢æ³¢ï¼›
+% tripulsï¼Œç”Ÿæˆä¸€ä¸ªé‡‡æ ·éžå‘¨æœŸä¸‰è§’æ³¢ã€‚p1ï¼Œp2ï¼Œ???æ˜¯é™„åŠ å‚æ•°ã€‚
 % 
-% 2.pulstran£¨t,d,p,fs£©£ºÉú³ÉÒ»¸öÏòÁ¿ p Âö³åµÄ¶àÖØÑÓÊ±²åÖµÖ®ºÍ£¬²ÉÑùÂÊÎª fs¡£
+% 2.pulstranï¼ˆt,d,p,fsï¼‰ï¼šç”Ÿæˆä¸€ä¸ªå‘é‡ p è„‰å†²çš„å¤šé‡å»¶æ—¶æ’å€¼ä¹‹å’Œï¼Œé‡‡æ ·çŽ‡ä¸º fsã€‚
 % 
-% 3.pulstran£¨t,d,p£©£º¼ÙÉè²ÉÑùÆµÂÊ fd µÈÓÚ 1Hz¡£
+% 3.pulstranï¼ˆt,d,pï¼‰ï¼šå‡è®¾é‡‡æ ·é¢‘çŽ‡ fd ç­‰äºŽ 1Hzã€‚
 
-% pulstran º¯Êý»ùÓÚÁ¬ÐøµÄ»ò²ÉÑùµÄÔ­ÐÍÂö³åÉú³ÉÂö³åÐòÁÐ¡£´ËÊ¾ÀýÉú³ÉÓÉ¸ßË¹Âö³åµÄ¶à´ÎÑÓ³Ù²åÖµÖ®ºÍ×é³ÉµÄÂö³åÐòÁÐ¡£
-% ¸ÃÂö³åÐòÁÐ¶¨ÒåÎª¾ßÓÐ 50 kHz µÄ²ÉÑùÂÊ¡¢10 ms µÄÂö³åÐòÁÐ³¤¶ÈºÍ 1 kHz µÄÂö³åÖØ¸´ÂÊ¡£
-% T Ö¸¶¨Âö³åÐòÁÐµÄ²ÉÑùÊ±¿Ì¡£D ÔÚµÚÒ»ÁÐÖÐÖ¸¶¨Ã¿¸öÂö³åÖØ¸´µÄÑÓ³Ù£¬ÔÚµÚ¶þÁÐÖÐÖ¸¶¨Ã¿¸öÖØ¸´µÄ¿ÉÑ¡Ë¥¼õ¡£
-% Òª¹¹Ôì¸ÃÂö³åÐòÁÐ£¬Çë½« gauspuls º¯ÊýµÄÃû³ÆÒÔ¼°¸½¼Ó²ÎÊý£¨ÓÃÓÚÖ¸¶¨´ø¿íÎª 50% µÄ 10 kHz ¸ßË¹Âö³å£©´«µÝ¸ø pulstran¡£
-% ²úÉúÒ»¸öÖÜÆÚ¸ßË¹Âö³åÐÅºÅÔÚ 10khz Óë 50% µÄ´ø¿í¡£Âö³åÖØ¸´ÆµÂÊÎª 1khz£¬²ÉÑùÂÊÎª 50khz£¬Âö³åÐòÁÐ³¤¶ÈÎª 10ms¡£Ã¿¸öÂö³åµÄÕñ·ùÊÇÇ°Ò»¸öÂö³åµÄ 80%¡£
+% pulstran å‡½æ•°åŸºäºŽè¿žç»­çš„æˆ–é‡‡æ ·çš„åŽŸåž‹è„‰å†²ç”Ÿæˆè„‰å†²åºåˆ—ã€‚æ­¤ç¤ºä¾‹ç”Ÿæˆç”±é«˜æ–¯è„‰å†²çš„å¤šæ¬¡å»¶è¿Ÿæ’å€¼ä¹‹å’Œç»„æˆçš„è„‰å†²åºåˆ—ã€‚
+% è¯¥è„‰å†²åºåˆ—å®šä¹‰ä¸ºå…·æœ‰ 50 kHz çš„é‡‡æ ·çŽ‡ã€10 ms çš„è„‰å†²åºåˆ—é•¿åº¦å’Œ 1 kHz çš„è„‰å†²é‡å¤çŽ‡ã€‚
+% T æŒ‡å®šè„‰å†²åºåˆ—çš„é‡‡æ ·æ—¶åˆ»ã€‚D åœ¨ç¬¬ä¸€åˆ—ä¸­æŒ‡å®šæ¯ä¸ªè„‰å†²é‡å¤çš„å»¶è¿Ÿï¼Œåœ¨ç¬¬äºŒåˆ—ä¸­æŒ‡å®šæ¯ä¸ªé‡å¤çš„å¯é€‰è¡°å‡ã€‚
+% è¦æž„é€ è¯¥è„‰å†²åºåˆ—ï¼Œè¯·å°† gauspuls å‡½æ•°çš„åç§°ä»¥åŠé™„åŠ å‚æ•°ï¼ˆç”¨äºŽæŒ‡å®šå¸¦å®½ä¸º 50% çš„ 10 kHz é«˜æ–¯è„‰å†²ï¼‰ä¼ é€’ç»™ pulstranã€‚
+% äº§ç”Ÿä¸€ä¸ªå‘¨æœŸé«˜æ–¯è„‰å†²ä¿¡å·åœ¨ 10khz ä¸Ž 50% çš„å¸¦å®½ã€‚è„‰å†²é‡å¤é¢‘çŽ‡ä¸º 1khzï¼Œé‡‡æ ·çŽ‡ä¸º 50khzï¼Œè„‰å†²åºåˆ—é•¿åº¦ä¸º 10msã€‚æ¯ä¸ªè„‰å†²çš„æŒ¯å¹…æ˜¯å‰ä¸€ä¸ªè„‰å†²çš„ 80%ã€‚
 T1 = 0:1/50e3:10e-3;
 D1 = [0:1/1e3:10e-3;0.8.^(0:10)]';
 % https://ww2.mathworks.cn/help/signal/gs/the-pulstran-function.html
@@ -106,13 +106,13 @@ grid;
 
 
 
-% pulstranº¯Êý£¬func=triplus
-% Éú³É²»¶Ô³ÆÈý½Ç²¨£¬ÖØ¸´ÆµÂÊ3Hz,Èý½Ç¿í¶È0.1s,ÐÅºÅ³¤¶È1s,²ÉÑùÆµÂÊ1KHz.
+% pulstranå‡½æ•°ï¼Œfunc=triplus
+% ç”Ÿæˆä¸å¯¹ç§°ä¸‰è§’æ³¢ï¼Œé‡å¤é¢‘çŽ‡3Hz,ä¸‰è§’å®½åº¦0.1s,ä¿¡å·é•¿åº¦1s,é‡‡æ ·é¢‘çŽ‡1KHz.
 figure(6);
-t6 = 0:1e-3:1;  %ÉèÖÃ²ÉÑùÆµÂÊÎª1KHz
-d6 = 0:1/3:1;   %ÉèÖÃÐÅºÅÖØ¸´ÆµÂÊÎª3Hz£¬¼´ÖÜÆÚÎª1/3
+t6 = 0:1e-3:1;  %è®¾ç½®é‡‡æ ·é¢‘çŽ‡ä¸º1KHz
+d6 = 0:1/3:1;   %è®¾ç½®ä¿¡å·é‡å¤é¢‘çŽ‡ä¸º3Hzï¼Œå³å‘¨æœŸä¸º1/3
 subplot(5,1,1);
-y6 = pulstran(t6,d6,'tripuls',0.1, -1);%Õâ¸öº¯ÊýÖÐµÄ 0.1 ÒÔ¼° - 1 ¶¼ÊÇ¡®tripuls¡¯µÄ²ÎÊý£¬Àý×Ó 0.1 ÊÇÂö¿í£¬-1 ±íÊ¾Âö³å×î¸ß·ùÖµÔÚ×î×ó±ß£¬Èç¹û½« - 1 È¥µô£¬ÔòÄ¬ÈÏÎª 0.5. 
+y6 = pulstran(t6,d6,'tripuls',0.1, -1);%è¿™ä¸ªå‡½æ•°ä¸­çš„ 0.1 ä»¥åŠ - 1 éƒ½æ˜¯â€˜tripulsâ€™çš„å‚æ•°ï¼Œä¾‹å­ 0.1 æ˜¯è„‰å®½ï¼Œ-1 è¡¨ç¤ºè„‰å†²æœ€é«˜å¹…å€¼åœ¨æœ€å·¦è¾¹ï¼Œå¦‚æžœå°† - 1 åŽ»æŽ‰ï¼Œåˆ™é»˜è®¤ä¸º 0.5. 
 plot(t6,y6);
 
 subplot(5,1,2);
@@ -130,7 +130,7 @@ plot(t6,y6_4);
 
 subplot(5,1,5);
 y6_5 = pulstran(t6,d6,'tripuls',0.1, 0);
-plot(t6,y6_5);  %Èý½Ç²¨£¬p6:ÓÐÐ§²¿·Ö¿í¶È£»p6_1:ÐÅºÅ×î´ó²¿·ÖÆ«ÒÆ(0Îª¶Ô³ÆµÄ)
+plot(t6,y6_5);  %ä¸‰è§’æ³¢ï¼Œp6:æœ‰æ•ˆéƒ¨åˆ†å®½åº¦ï¼›p6_1:ä¿¡å·æœ€å¤§éƒ¨åˆ†åç§»(0ä¸ºå¯¹ç§°çš„)
 
 
 %%==========================================================================================================

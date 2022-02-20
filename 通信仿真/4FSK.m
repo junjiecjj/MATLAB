@@ -1,11 +1,11 @@
-% ¶à½øÖÆÊý×Ö·ù¶Èµ÷ÖÆ MASK
-% ±¾Àý M=4
+% å¤šè¿›åˆ¶æ•°å­—å¹…åº¦è°ƒåˆ¶ MASK
+% æœ¬ä¾‹ M=4
 N=20;
 f=2;
 t=0:2*pi/99:2*pi;
 m1=[];
 c1=[];
-for i=1:N/2                      % M=4£¬ÉèÖÃ 4 ÖÖÈ¡ÖµÇé¿ö
+for i=1:N/2                      % M=4ï¼Œè®¾ç½® 4 ç§å–å€¼æƒ…å†µ
    temp=rand;
    if(temp<0.25)
        ak(i)=0;bk(i)=0;
@@ -17,7 +17,7 @@ for i=1:N/2                      % M=4£¬ÉèÖÃ 4 ÖÖÈ¡ÖµÇé¿ö
        ak(i)=1;bk(i)=0;
     end
 end
-for i=1:N/2                      % ¸ù¾Ý 4 ÖÖÈ¡ÖµÇé¿ö ½øÈ¥¶ÔÓ¦È¡Öµ
+for i=1:N/2                      % æ ¹æ® 4 ç§å–å€¼æƒ…å†µ è¿›åŽ»å¯¹åº”å–å€¼
    if((ak(i)==0))&(bk(i)==0)
        m=zeros(1,100);
    elseif((ak(i)==0))&(bk(i)==1)
@@ -32,25 +32,25 @@ for i=1:N/2                      % ¸ù¾Ý 4 ÖÖÈ¡ÖµÇé¿ö ½øÈ¥¶ÔÓ¦È¡Öµ
     c1=[c1 c];
 end
 ask=c1.*m1;
-subplot(211);      % »æÖÆÍ¼ÐÎ
+subplot(211);      % ç»˜åˆ¶å›¾å½¢
 plot(m1)
-title (' Ëæ»ú²úÉúÊý×ÖÐÅºÅ ');
+title (' éšæœºäº§ç”Ÿæ•°å­—ä¿¡å· ');
 axis([0 50*N -0.1 4]);
 subplot(212);
 plot(ask)
-title ('4ASK ÐÅºÅ ');
+title ('4ASK ä¿¡å· ');
 axis([0 50*N -4 4]);
 
 ================================================
 
-% ¶à½øÖÆÊý×ÖÆµÂÊµ÷ÖÆ MFSK
-% ±¾Àý M=4
+% å¤šè¿›åˆ¶æ•°å­—é¢‘çŽ‡è°ƒåˆ¶ MFSK
+% æœ¬ä¾‹ M=4
 N=20; f1=1; f2=2; f3=3; f4=4;
 t=0:2*pi/99:2*pi;
 m1=[];
 c1=[];
 b1=[];
-for i=1:N/2      % ¸ù¾Ý 4FSK È¡ 4 ÖÖ²»Í¬Çé¿ö
+for i=1:N/2      % æ ¹æ® 4FSK å– 4 ç§ä¸åŒæƒ…å†µ
    temp=rand;
    if(temp<0.25)
        ak(i)=0;bk(i)=0;
@@ -62,7 +62,7 @@ for i=1:N/2      % ¸ù¾Ý 4FSK È¡ 4 ÖÖ²»Í¬Çé¿ö
        ak(i)=1;bk(i)=0;
     end
 end
-for i=1:N/2      % ¶ÔÓ¦ 4 ÖÖÇé¿ö·Ö±ðÈ¡ÖµÎª 0¡¢1¡¢2¡¢3
+for i=1:N/2      % å¯¹åº” 4 ç§æƒ…å†µåˆ†åˆ«å–å€¼ä¸º 0ã€1ã€2ã€3
    if((ak(i)==0))&(bk(i)==0)
        m=ones(1,100);
        c=sin(f1*t);
@@ -85,11 +85,11 @@ for i=1:N/2      % ¶ÔÓ¦ 4 ÖÖÇé¿ö·Ö±ðÈ¡ÖµÎª 0¡¢1¡¢2¡¢3
     b1=[b1 b];
 end
 fsk=c1.*m1;
-subplot(211);       % »æÖÆ²¨ÐÎ
+subplot(211);       % ç»˜åˆ¶æ³¢å½¢
 plot(b1)
-title (' Ëæ»ú²úÉú 4 ½øÖÆÊý×ÖÐòÁÐ ');
+title (' éšæœºäº§ç”Ÿ 4 è¿›åˆ¶æ•°å­—åºåˆ— ');
 axis([0 50*N -0.1 4]);
 subplot(212);
 plot(fsk)
-title ('4FSK ÐÅºÅ ');
+title ('4FSK ä¿¡å· ');
 axis([0 50*N -1.1 1.1]);

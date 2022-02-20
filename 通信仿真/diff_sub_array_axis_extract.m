@@ -1,17 +1,17 @@
 function [TotalDigCentAxis,TotalAngCentAxis] = diff_sub_array_axis_extract(AllArrayAxis,AllDigSubArrNum)
 %==========================================================================
-%获取阵列坐标
+%鑾峰彇闃靛垪鍧愭爣
 %==========================================================================
-TotalDigCentAxis=[];  %数字阵列平均坐标
-TotalAngCentAxis=[];  %模拟阵列平均坐标
+TotalDigCentAxis=[];  %鏁板瓧闃靛垪骞冲潎鍧愭爣
+TotalAngCentAxis=[];  %妯℃嫙闃靛垪骞冲潎鍧愭爣
 
 for knum=1:AllDigSubArrNum
     if(AllArrayAxis(knum).DigSubValid)
-        DigCentAxis     = AllArrayAxis(knum).fDigArrayAxis ;%数字中心坐标 
-        TotalDigCentAxis=[TotalDigCentAxis;DigCentAxis];    %数字阵列平均坐标
+        DigCentAxis     = AllArrayAxis(knum).fDigArrayAxis ;%鏁板瓧涓績鍧愭爣 
+        TotalDigCentAxis=[TotalDigCentAxis;DigCentAxis];    %鏁板瓧闃靛垪骞冲潎鍧愭爣
 
-        AngArrayAxis = AllArrayAxis(knum).fAngArrayAxis;   %模拟阵列坐标
-        TotalAngCentAxis=[TotalAngCentAxis;AngArrayAxis];  %模拟阵列平均坐标
+        AngArrayAxis = AllArrayAxis(knum).fAngArrayAxis;   %妯℃嫙闃靛垪鍧愭爣
+        TotalAngCentAxis=[TotalAngCentAxis;AngArrayAxis];  %妯℃嫙闃靛垪骞冲潎鍧愭爣
     end
     knum;
 end

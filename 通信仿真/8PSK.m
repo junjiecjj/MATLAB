@@ -3,18 +3,18 @@
 clc
 clear all
 close all
-Fc=700e6;%FcÔØ²¨ÆµÂÊ
+Fc=700e6;%Fcè½½æ³¢é¢‘ç‡
 
 data_num=300;
-data = randint(1,data_num); %²úÉú1ĞĞ300ÁĞµÄ¾ØÕó£¬ÔªÊıÎª0-1Ö®¼äµÄËæ»úÊı£¬°üÀ¨0ºÍ1
+data = randint(1,data_num); %äº§ç”Ÿ1è¡Œ300åˆ—çš„çŸ©é˜µï¼Œå…ƒæ•°ä¸º0-1ä¹‹é—´çš„éšæœºæ•°ï¼ŒåŒ…æ‹¬0å’Œ1
 figure(1)
 subplot(211)
-plot(data);title('Ô­Ê¼»ù´øĞÅºÅ')%ÒÔdata·ÖÁ¿Îª×İ×ø±ê£¬ÒÔÔªËØĞòºÅÎªºá×ø±ê£¬ÓÃÖ±ÏßÒÀ´ÎÁ¬½ÓÊı¾İµã£¬»æÖÆÇúÏß
+plot(data);title('åŸå§‹åŸºå¸¦ä¿¡å·')%ä»¥dataåˆ†é‡ä¸ºçºµåæ ‡ï¼Œä»¥å…ƒç´ åºå·ä¸ºæ¨ªåæ ‡ï¼Œç”¨ç›´çº¿ä¾æ¬¡è¿æ¥æ•°æ®ç‚¹ï¼Œç»˜åˆ¶æ›²çº¿
 ts=0:1:length(data)-1;
 subplot(212)
-stem(ts,data);title('Ô­Ê¼»ù´øĞÅºÅ');%¡°ÓĞÊ±¼äÏòÁ¿µÄ»°£¬ĞòÁĞÊÇ³å¼¤¡±
+stem(ts,data);title('åŸå§‹åŸºå¸¦ä¿¡å·');%â€œæœ‰æ—¶é—´å‘é‡çš„è¯ï¼Œåºåˆ—æ˜¯å†²æ¿€â€
 
-fs_16k=16e3;%¼ÙÉè×î¿ªÊ¼²ÉÑùÆµÂÊÊÇ16e3
+fs_16k=16e3;%å‡è®¾æœ€å¼€å§‹é‡‡æ ·é¢‘ç‡æ˜¯16e3
 it=[];qt=[];
 sit=[];sqt=[];
 for i=1:3:length(data)
@@ -22,7 +22,7 @@ for i=1:3:length(data)
     Q(i+1) = data(i+1);
     U(i+2) = data(i+2);   
     if I(i)==0 && Q(i+1)==0 && U(i+2)==0
-        it=0.924*ones(1,1);%1ĞĞ1ÁĞµÄÈ«Îª1µÄ¾ØÕó
+        it=0.924*ones(1,1);%1è¡Œ1åˆ—çš„å…¨ä¸º1çš„çŸ©é˜µ
         qt=0.383*ones(1,1);
        
     elseif I(i)==0 && Q(i+1)==0 && U(i+2)==1
@@ -55,34 +55,34 @@ for i=1:3:length(data)
        
     end
    sit=[sit it]; sqt=[sqt qt];
-end %Ó³Éä
+end %æ˜ å°„
 figure(2)
 subplot(221)
-plot(sit);title('iÂ·ĞÅºÅ')
+plot(sit);title('iè·¯ä¿¡å·')
 subplot(222)
-plot(sqt);title('qÂ·ĞÅºÅ')
+plot(sqt);title('qè·¯ä¿¡å·')
 subplot(223)
 plot(-fs_16k/2:fs_16k/length(sit):fs_16k/2-fs_16k/length(sit),fftshift(abs(fft(sit))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼')
+title('Iè·¯é¢‘è°±å›¾')
 subplot(224)
 plot(-fs_16k/2:fs_16k/length(sqt):fs_16k/2-fs_16k/length(sqt),fftshift(abs(fft(sqt))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼')
+title('Qè·¯é¢‘è°±å›¾')
 
 figure(3)
-scatter(sit,sqt);%ĞÇ×ùÍ¼
+scatter(sit,sqt);%æ˜Ÿåº§å›¾
 grid on
 
 
-%% Ìá¸ß²ÉÑùÆµÂÊ 16k-160k,(²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈ³éºóÂË)
+%% æé«˜é‡‡æ ·é¢‘ç‡ 16k-160k,(æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæŠ½åæ»¤)
 
 fs_160k=160e3;
 sit_160k=upsample(sit,10);
 sqt_160k=upsample(sqt,10);
 
-beta=0.4;%r=0Ê±ÊÇ¾ØĞÎ
+beta=0.4;%r=0æ—¶æ˜¯çŸ©å½¢
 span=length(sit_160k);
 sps=10;
 h = rcosdesign(beta,span,sps);
@@ -91,21 +91,21 @@ sqt_160k_f=conv(sqt_160k,h,'same');
 
 figure(4)
 subplot(221)
-plot(sit_160k_f);title('10±¶²åÖµiÂ·')
+plot(sit_160k_f);title('10å€æ’å€¼iè·¯')
 subplot(222)
-plot(sqt_160k_f);title('10±¶²åÖµqÂ·')
+plot(sqt_160k_f);title('10å€æ’å€¼qè·¯')
 subplot(223)
 plot(-fs_160k/2:fs_160k/length(sit_160k_f):fs_160k/2-fs_160k/length(sit_160k_f),fftshift(abs(fft(sit_160k_f))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(ÉıÓàÏÒ)')
+title('Iè·¯é¢‘è°±å›¾(å‡ä½™å¼¦)')
 subplot(224)
 plot(-fs_160k/2:fs_160k/length(sqt_160k_f):fs_160k/2-fs_160k/length(sqt_160k_f),fftshift(abs(fft(sqt_160k_f))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(ÉıÓàÏÒ)')
+title('Qè·¯é¢‘è°±å›¾(å‡ä½™å¼¦)')
 
 
-%% 160k-1600k, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈ³éºóÂË
+%% 160k-1600k, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæŠ½åæ»¤
 
 fs_1600k=1600e3;
 sit_1600k=upsample(sit_160k_f,10);
@@ -117,20 +117,20 @@ sqt_1600k_f=conv(sqt_1600k,y_de7,'same');
 
 figure(5)
 subplot(221)
-plot(sit_1600k_f);title('100±¶²åÖµiÂ·')
+plot(sit_1600k_f);title('100å€æ’å€¼iè·¯')
 subplot(222)
-plot(sqt_1600k_f);title('100±¶²åÖµqÂ·')
+plot(sqt_1600k_f);title('100å€æ’å€¼qè·¯')
 subplot(223)
 plot(-fs_1600k/2:fs_1600k/length(sit_1600k_f):fs_1600k/2-fs_1600k/length(sit_1600k_f),fftshift(abs(fft(sit_1600k_f))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_1600k/2:fs_1600k/length(sqt_1600k_f):fs_1600k/2-fs_1600k/length(sqt_1600k_f),fftshift(abs(fft(sqt_1600k_f))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)');
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)');
 
-%% 1600k-16M, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈ³éºóÂË
+%% 1600k-16M, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæŠ½åæ»¤
 
 fs_16M=16e6;
 sit_16M=upsample(sit_1600k_f,10);
@@ -142,47 +142,47 @@ sqt_16M_f=conv(sqt_16M,y_de7,'same');
 
 figure(6)
 subplot(221)
-plot(sit_16M_f);title('1000±¶²åÖµiÂ·')
+plot(sit_16M_f);title('1000å€æ’å€¼iè·¯')
 subplot(222)
-plot(sqt_16M_f);title('1000±¶²åÖµqÂ·')
+plot(sqt_16M_f);title('1000å€æ’å€¼qè·¯')
 subplot(223)
 plot(-fs_16M/2:fs_16M/length(sit_16M_f):fs_16M/2-fs_16M/length(sit_16M_f),fftshift(abs(fft(sit_16M_f))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_16M/2:fs_16M/length(sqt_16M_f):fs_16M/2-fs_16M/length(sqt_16M_f),fftshift(abs(fft(sqt_16M_f))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)');
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)');
 
-%% 16M-25M, ÓÉÓÚÔ­Ê¼²ÉÑùÆµÂÊÓëĞÅµÀ´«ÊäĞèÒªµÄ²ÉÑùÆµÂÊ²»Ò»ÖÂ£¬¹ÊĞèÒª±äÆµ¡£
+%% 16M-25M, ç”±äºåŸå§‹é‡‡æ ·é¢‘ç‡ä¸ä¿¡é“ä¼ è¾“éœ€è¦çš„é‡‡æ ·é¢‘ç‡ä¸ä¸€è‡´ï¼Œæ•…éœ€è¦å˜é¢‘ã€‚
 
 fs_25M=25e6;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 sit_25M=resample(sit_16M_f,25,16);
 sqt_25M=resample(sqt_16M_f,25,16);
 
 figure(7)
 subplot(221)
-plot(sit_25M);title('25/16±¶²åÖµiÂ·')
+plot(sit_25M);title('25/16å€æ’å€¼iè·¯')
 subplot(222)
-plot(sqt_25M);title('25/16±¶²åÖµqÂ·')
+plot(sqt_25M);title('25/16å€æ’å€¼qè·¯')
 subplot(223)
 plot(-fs_25M/2:fs_25M/length(sit_25M):fs_25M/2-fs_25M/length(sit_25M),fftshift(abs(fft(sit_25M))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_25M/2:fs_25M/length(sqt_25M):fs_25M/2-fs_25M/length(sqt_25M),fftshift(abs(fft(sqt_25M))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
 
 %% 25M-250M
 
 fs_250M=250e6;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 sit_250M=upsample(sit_25M,10);
 sqt_250M=upsample(sqt_25M,10);
 
@@ -192,39 +192,39 @@ sqt_250M_f=conv(sqt_250M,y_de7,'same');
 
 figure(8)
 subplot(221)
-plot(sit_250M_f);title('10±¶²åÖµiÂ·')
+plot(sit_250M_f);title('10å€æ’å€¼iè·¯')
 subplot(222)
-plot(sqt_250M_f);title('10±¶²åÖµqÂ·')
+plot(sqt_250M_f);title('10å€æ’å€¼qè·¯')
 subplot(223)
 plot(-fs_250M/2:fs_250M/length(sit_250M_f):fs_250M/2-fs_250M/length(sit_250M_f),fftshift(abs(fft(sit_250M_f))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_250M/2:fs_250M/length(sqt_250M_f):fs_250M/2-fs_250M/length(sqt_250M_f),fftshift(abs(fft(sqt_250M_f))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
 
-%% ´øÍ¨µ÷ÖÆ
+%% å¸¦é€šè°ƒåˆ¶
 
 fs_250M=250e6;
 T=length(sqt_250M_f);%T=
 t=0 : 1/fs_250M :T/fs_250M - 1/fs_250M;%fs = 100
-% c=exp(j*2*pi*Fc*t);	%ÔØ²¨ĞÅºÅ,Fc=70e6
-c1=cos(2*pi*Fc*t);	%Í¬ÏàÔØ²¨
-c2=-sin(2*pi*Fc*t);	%Õı½»ÔØ²¨	
+% c=exp(j*2*pi*Fc*t);	%è½½æ³¢ä¿¡å·,Fc=70e6
+c1=cos(2*pi*Fc*t);	%åŒç›¸è½½æ³¢
+c2=-sin(2*pi*Fc*t);	%æ­£äº¤è½½æ³¢	
 psk8 = sit_250M_f.*c1 + sqt_250M_f.*c2;
 figure(9),
-% subplot(221);plot(t,c);title('ÔØ²¨ĞÅºÅ')
-subplot(221);plot(t,c1);title('Í¬ÏàÔØ²¨')
-subplot(222);plot(t,c2);title('Õı½»ÔØ²¨')
-subplot(223);plot(t,psk8);	title('ÒÑµ÷ĞÅºÅ')
+% subplot(221);plot(t,c);title('è½½æ³¢ä¿¡å·')
+subplot(221);plot(t,c1);title('åŒç›¸è½½æ³¢')
+subplot(222);plot(t,c2);title('æ­£äº¤è½½æ³¢')
+subplot(223);plot(t,psk8);	title('å·²è°ƒä¿¡å·')
 subplot(224);
 plot(-fs_250M/2:fs_250M/length(psk8):fs_250M/2-fs_250M/length(psk8),fftshift(abs(fft(psk8))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('ÒÑµ÷ĞÅºÅÆµÆ×Í¼')
-%% ½âµ÷
+title('å·²è°ƒä¿¡å·é¢‘è°±å›¾')
+%% è§£è°ƒ
 
 fs_250M=250e6;
 rit_250M_de=2*psk8.*c1;
@@ -234,23 +234,23 @@ rit_250M_f=conv(rit_250M_de,y_de7,'same');
 rqt_250M_f=conv(rqt_250M_de,y_de7,'same');
 figure(10)
 subplot(221)
-plot(rit_250M_f);title('IÂ·½âµ÷ĞÅºÅ')
+plot(rit_250M_f);title('Iè·¯è§£è°ƒä¿¡å·')
 subplot(222)
-plot(rqt_250M_f);title('QÂ·½âµ÷ĞÅºÅ')
+plot(rqt_250M_f);title('Qè·¯è§£è°ƒä¿¡å·')
 subplot(223)
 plot(-fs_250M/2:fs_250M/length(rit_250M_f):fs_250M/2-fs_250M/length(rit_250M_f),fftshift(abs(fft(rit_250M_f))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·½âµ÷ĞÅºÅÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯è§£è°ƒä¿¡å·é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_250M/2:fs_250M/length(rqt_250M_f):fs_250M/2-fs_250M/length(rqt_250M_f),fftshift(abs(fft(rqt_250M_f))));
 xlabel('Frequency(Hz)');
-title('QÂ·½âµ÷ĞÅºÅÆµÆ×Í¼(µÍÍ¨)')
-%% 250M-25M, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈÂËºó³é
+title('Qè·¯è§£è°ƒä¿¡å·é¢‘è°±å›¾(ä½é€š)')
+%% 250M-25M, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæ»¤åæŠ½
 
 fs_25M=25e6;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 y_de7=fir1(127,1/10);
 rit_250M_f1=conv(rit_250M_f,y_de7,'same');
 rqt_250M_f1=conv(rqt_250M_f,y_de7,'same');
@@ -260,23 +260,23 @@ rqt_25M=downsample(rqt_250M_f1,10);
 
 figure(11)
 subplot(221)
-plot(rit_25M);title('10±¶³éÈ¡iÂ·')
+plot(rit_25M);title('10å€æŠ½å–iè·¯')
 subplot(222)
-plot(rqt_25M);title('10±¶³éÈ¡qÂ·')
+plot(rqt_25M);title('10å€æŠ½å–qè·¯')
 subplot(223)
 plot(-fs_25M/2:fs_25M/length(rit_25M):fs_25M/2-fs_25M/length(rit_25M),fftshift(abs(fft(rit_25M))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_25M/2:fs_25M/length(rqt_25M):fs_25M/2-fs_25M/length(rqt_25M),fftshift(abs(fft(rqt_25M))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
-%% 25M-16M, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈÂËºó³é
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
+%% 25M-16M, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæ»¤åæŠ½
 
 fs_16M=16e6;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 % y_de7=fir1(127,1/10);
 % rit_25M_f=conv(rit_25M,y_de7,'same');
 % rqt_25M_f=conv(rqt_25M,y_de7,'same');
@@ -286,23 +286,23 @@ rqt_16M=resample(rqt_25M,16,25);
 
 figure(12)
 subplot(221)
-plot(rit_16M);title('10*25/16±¶³éÈ¡iÂ·')
+plot(rit_16M);title('10*25/16å€æŠ½å–iè·¯')
 subplot(222)
-plot(rqt_16M);title('10*25/16±¶³éÈ¡qÂ·')
+plot(rqt_16M);title('10*25/16å€æŠ½å–qè·¯')
 subplot(223)
 plot(-fs_16M/2:fs_16M/length(rit_16M):fs_16M/2-fs_16M/length(rit_16M),fftshift(abs(fft(rit_16M))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_16M/2:fs_16M/length(rqt_16M):fs_16M/2-fs_16M/length(rqt_16M),fftshift(abs(fft(rqt_16M))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
-%% 16M-1600k, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈÂËºó³é
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
+%% 16M-1600k, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæ»¤åæŠ½
 
 fs_1600k=1600e3;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 y_de7=fir1(127,1/10);
 rit_16M_f=conv(rit_16M,y_de7,'same');
 rqt_16M_f=conv(rqt_16M,y_de7,'same');
@@ -312,23 +312,23 @@ rqt_1600k=downsample(rqt_16M_f,10);
 
 figure(13)
 subplot(221)
-plot(rit_1600k);title('10±¶³éÈ¡iÂ·')
+plot(rit_1600k);title('10å€æŠ½å–iè·¯')
 subplot(222)
-plot(rqt_1600k);title('10±¶³éÈ¡qÂ·')
+plot(rqt_1600k);title('10å€æŠ½å–qè·¯')
 subplot(223)
 plot(-fs_1600k/2:fs_1600k/length(rit_1600k):fs_1600k/2-fs_1600k/length(rit_1600k),fftshift(abs(fft(rit_1600k))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_1600k/2:fs_1600k/length(rqt_1600k):fs_1600k/2-fs_1600k/length(rqt_1600k),fftshift(abs(fft(rqt_1600k))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
-%% 1600k-160k, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈÂËºó³é
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
+%% 1600k-160k, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæ»¤åæŠ½
 
 fs_160k=160e3;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 y_de7=fir1(127,1/10);
 rit_160k_f=conv(rit_1600k,y_de7,'same');
 rqt_160k_f=conv(rqt_1600k,y_de7,'same');
@@ -338,23 +338,23 @@ rqt_160k=downsample(rqt_160k_f,10);
 
 figure(14)
 subplot(221)
-plot(rit_160k);title('10±¶³éÈ¡iÂ·')
+plot(rit_160k);title('10å€æŠ½å–iè·¯')
 subplot(222)
-plot(rqt_160k);title('10±¶³éÈ¡qÂ·')
+plot(rqt_160k);title('10å€æŠ½å–qè·¯')
 subplot(223)
 plot(-fs_160k/2:fs_160k/length(rit_160k):fs_160k/2-fs_160k/length(rit_160k),fftshift(abs(fft(rit_160k))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_160k/2:fs_160k/length(rqt_160k):fs_160k/2-fs_160k/length(rqt_160k),fftshift(abs(fft(rqt_160k))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
-%% 160k-16k, ²åÖµ£ºÏÈ²åºóÂË£¬³éÈ¡£ºÏÈÂËºó³é
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
+%% 160k-16k, æ’å€¼ï¼šå…ˆæ’åæ»¤ï¼ŒæŠ½å–ï¼šå…ˆæ»¤åæŠ½
 
 fs_16k=16e3;
-%resampleÎªĞÅºÅ½µ²ÉÑù´¦Àí£¬Àí½âÈçÏÂ£ºB=resample(x,90,250); 
-% ²ÉÑù´Ó250Hz½µµ½90Hz£¬Èç¹û250ÔÚÇ°,¾ÍÊÇ²åÖµ´Ó90µ½250,¿ÉÒÔ¿´BµÄ³¤¶È,250Hz²ÉÑù4000¸öÊı¾İµÈÓÚ90hz²ÉÑù1440¸öÊı¾İ,Õâ¾ÍÊÇ½µ²ÉÑù¡£
+%resampleä¸ºä¿¡å·é™é‡‡æ ·å¤„ç†ï¼Œç†è§£å¦‚ä¸‹ï¼šB=resample(x,90,250); 
+% é‡‡æ ·ä»250Hzé™åˆ°90Hzï¼Œå¦‚æœ250åœ¨å‰,å°±æ˜¯æ’å€¼ä»90åˆ°250,å¯ä»¥çœ‹Bçš„é•¿åº¦,250Hzé‡‡æ ·4000ä¸ªæ•°æ®ç­‰äº90hzé‡‡æ ·1440ä¸ªæ•°æ®,è¿™å°±æ˜¯é™é‡‡æ ·ã€‚
 
 y_de7=fir1(127,1/10);
 rit_160k_f=conv(rit_160k,y_de7,'same');
@@ -365,24 +365,24 @@ rqt_16k=downsample(rqt_160k_f,10);
 
 figure(15)
 subplot(221)
-plot(rit_16k);title('10±¶³éÈ¡iÂ·')
+plot(rit_16k);title('10å€æŠ½å–iè·¯')
 subplot(222)
-plot(rqt_16k);title('10±¶³éÈ¡qÂ·')
+plot(rqt_16k);title('10å€æŠ½å–qè·¯')
 subplot(223)
 plot(-fs_16k/2:fs_16k/length(rit_16k):fs_16k/2-fs_16k/length(rit_16k),fftshift(abs(fft(rit_16k))));
 xlabel('Frequency(Hz)');
 ylabel('Amp');
-title('IÂ·ÆµÆ×Í¼(µÍÍ¨)')
+title('Iè·¯é¢‘è°±å›¾(ä½é€š)')
 subplot(224)
 plot(-fs_16k/2:fs_16k/length(rqt_16k):fs_16k/2-fs_16k/length(rqt_16k),fftshift(abs(fft(rqt_16k))));
 xlabel('Frequency(Hz)');
-title('QÂ·ÆµÆ×Í¼(µÍÍ¨)')
-%% ĞÇ×ùÍ¼
+title('Qè·¯é¢‘è°±å›¾(ä½é€š)')
+%% æ˜Ÿåº§å›¾
 
 figure(16)
 scatter(rit_16k,rqt_16k);
 grid on
-%% 8psk ½âµ÷
+%% 8psk è§£è°ƒ
 
 fs_16k=16e3;
 rt=[ ];
@@ -421,11 +421,11 @@ for m=1:length(rit_16k)/100:length(rit_16k)
 end 
 figure(17),
 subplot(211)
-plot(rt1);title('½âµ÷³öµÄ»ù´øĞÅºÅ')%ÒÔdata·ÖÁ¿Îª×İ×ø±ê£¬ÒÔÔªËØĞòºÅÎªºá×ø±ê£¬ÓÃÖ±ÏßÒÀ´ÎÁ¬½ÓÊı¾İµã£¬»æÖÆÇúÏß
+plot(rt1);title('è§£è°ƒå‡ºçš„åŸºå¸¦ä¿¡å·')%ä»¥dataåˆ†é‡ä¸ºçºµåæ ‡ï¼Œä»¥å…ƒç´ åºå·ä¸ºæ¨ªåæ ‡ï¼Œç”¨ç›´çº¿ä¾æ¬¡è¿æ¥æ•°æ®ç‚¹ï¼Œç»˜åˆ¶æ›²çº¿
 subplot(212)
 ts=0:1:length(rt1)-1;
-stem(ts,rt1);title('½âµ÷³öµÄ»ù´øĞÅºÅ');
-%% Îó±ÈÌØÂÊ
+stem(ts,rt1);title('è§£è°ƒå‡ºçš„åŸºå¸¦ä¿¡å·');
+%% è¯¯æ¯”ç‰¹ç‡
 
 k=0;
 for i=1:length(data)
@@ -436,4 +436,4 @@ for i=1:length(data)
     end
 end
 rate1=k/length(data);
-fprintf('Îó±ÈÌØÂÊ=%f',rate1);
+fprintf('è¯¯æ¯”ç‰¹ç‡=%f',rate1);

@@ -4,71 +4,71 @@ clc
 clear
 close all;
 
-%%³õÊ¼»¯²ÎÊıÉèÖÃ
-data_len = 100000;                       % Ô­Ê¼Êı¾İ³¤¶È
-SNR_dB = 0:10;                           % ĞÅÔë±È dBĞÎÊ½
+%%åˆå§‹åŒ–å‚æ•°è®¾ç½®
+data_len = 100000;                       % åŸå§‹æ•°æ®é•¿åº¦
+SNR_dB = 0:10;                           % ä¿¡å™ªæ¯” dBå½¢å¼
 SNR = 10.^(SNR_dB/10);                   % Eb/N0
-Eb = 1; % Ã¿±ÈÌØÄÜÁ¿
-N0 = Eb./SNR ; %ÔëÉù¹¦ÂÊ
-error2 = zeros(1,length(SNR_dB));          % ÂëÔª´íÎó¸öÊı
-simu_ber_BPSK = zeros(1,length(SNR_dB));         % ·ÂÕæÎóÎóÂëÂÊ
-theory_ber_BPSK = zeros(1,length(SNR_dB));   % BPSKÀíÂÛÎóÂëÂÊ
-demod2_signal= zeros(1,data_len);         % ½âµ÷ĞÅºÅ
+Eb = 1; % æ¯æ¯”ç‰¹èƒ½é‡
+N0 = Eb./SNR ; %å™ªå£°åŠŸç‡
+error2 = zeros(1,length(SNR_dB));          % ç å…ƒé”™è¯¯ä¸ªæ•°
+simu_ber_BPSK = zeros(1,length(SNR_dB));         % ä»¿çœŸè¯¯è¯¯ç ç‡
+theory_ber_BPSK = zeros(1,length(SNR_dB));   % BPSKç†è®ºè¯¯ç ç‡
+demod2_signal= zeros(1,data_len);         % è§£è°ƒä¿¡å·
 
-%%»ù´øĞÅºÅ²úÉú
-data_source = round(rand(1,data_len));  % ¶ş½øÖÆËæ»úĞòÁĞ
+%%åŸºå¸¦ä¿¡å·äº§ç”Ÿ
+data_source = round(rand(1,data_len));  % äºŒè¿›åˆ¶éšæœºåºåˆ—
 
-%%BPSK»ù´øµ÷ÖÆ   
-send_signal2 = (data_source - 1/2)*2; % Ë«¼«ĞÔ²»¹éÁãĞòÁĞ 
+%%BPSKåŸºå¸¦è°ƒåˆ¶   
+send_signal2 = (data_source - 1/2)*2; % åŒææ€§ä¸å½’é›¶åºåˆ— 
 
-%%¸ßË¹ĞÅµÀÎŞ±àÂë
+%%é«˜æ–¯ä¿¡é“æ— ç¼–ç 
 for z = 1:length(SNR_dB)
-     noise2 = sqrt(N0(z)/2) * randn(1,data_len); %¸ßË¹°×ÔëÉù
+     noise2 = sqrt(N0(z)/2) * randn(1,data_len); %é«˜æ–¯ç™½å™ªå£°
      receive_signal2 = send_signal2 + noise2;
      demod_signal2 = zeros(1,data_len);
         for w = 1:data_len
                 if (receive_signal2(w) > 0)
-                demod_signal2(w) = 1;              % ½ÓÊÕĞÅºÅ´óÓÚ0  ÔòÅĞ1
+                demod_signal2(w) = 1;              % æ¥æ”¶ä¿¡å·å¤§äº0  åˆ™åˆ¤1
                 else
-                demod_signal2(w) = 0;              % ½ÓÊÕĞÅºÅĞ¡ÓÚ0  ÔòÅĞ0
+                demod_signal2(w) = 0;              % æ¥æ”¶ä¿¡å·å°äº0  åˆ™åˆ¤0
                 end
         end
-        %Í³¼Æ´íÎóÂëÔª¸öÊı
+        %ç»Ÿè®¡é”™è¯¯ç å…ƒä¸ªæ•°
        for w = 1:data_len
            if(demod_signal2(w) ~=data_source(w) )
-                  error2(z) = error2(z) + 1;    % ´íÎó±ÈÌØ¸öÊı
+                  error2(z) = error2(z) + 1;    % é”™è¯¯æ¯”ç‰¹ä¸ªæ•°
            end
        end
-           %¼ÆËãÎóÂëÂÊ
-        simu_ber_BPSK(z) = error2(z) / data_len;         % ·ÂÕæÎó±ÈÌØÂÊ
-        theory_ber_BPSK(z) = qfunc(sqrt(2*SNR(z)));   % ÀíÂÛÎó±ÈÌØÂÊ
+           %è®¡ç®—è¯¯ç ç‡
+        simu_ber_BPSK(z) = error2(z) / data_len;         % ä»¿çœŸè¯¯æ¯”ç‰¹ç‡
+        theory_ber_BPSK(z) = qfunc(sqrt(2*SNR(z)));   % ç†è®ºè¯¯æ¯”ç‰¹ç‡
 end
 
     
 
-%%¶ş½øÖÆĞòÁĞ¡¢»ù´øĞÅºÅÍ¼Ïñ
+%%äºŒè¿›åˆ¶åºåˆ—ã€åŸºå¸¦ä¿¡å·å›¾åƒ
 figure(1);
 stem(data_source);
-title('¶ş½øÖÆËæ»úĞòÁĞ');
+title('äºŒè¿›åˆ¶éšæœºåºåˆ—');
 axis([0,50,0,1]);
 figure(2);
 stem(send_signal2);
-title('BPSK»ù´øµ÷ÖÆ--·¢ËÍĞÅºÅ');
+title('BPSKåŸºå¸¦è°ƒåˆ¶--å‘é€ä¿¡å·');
 axis([0,50,-1.5,1.5]);
 
 figure(4);
 stem(noise2);
-title('¸ßË¹°×ÔëÉù');
+title('é«˜æ–¯ç™½å™ªå£°');
 axis([0,50,-0.5,0.5]);
 
 figure(5)
 stem(receive_signal2);
-title('½ÓÊÕĞÅºÅ');
+title('æ¥æ”¶ä¿¡å·');
 axis([0,50,-1.5,1.5]);
 
 figure(7)
 stem(demod_signal2);
-title('½âµ÷ĞÅºÅ');
+title('è§£è°ƒä¿¡å·');
 axis([0,50,0,1]);
 
 figure(8);
@@ -78,14 +78,14 @@ grid on;
 axis([0 10 10^-5 10^-1])                      
 xlabel('Eb/N0 (dB)');                     
 ylabel('BER');                                  
- legend('BPSK·ÂÕæÎóÂëÂÊ','BPSKÀíÂÛÎóÂëÂÊ');  
+ legend('BPSKä»¿çœŸè¯¯ç ç‡','BPSKç†è®ºè¯¯ç ç‡');  
 
-%%»­ĞÇ×ùÍ¼
+%%ç”»æ˜Ÿåº§å›¾
 scatterplot(send_signal2);
-title('·¢ËÍĞÅºÅĞÇ×ùÍ¼');
+title('å‘é€ä¿¡å·æ˜Ÿåº§å›¾');
 scatterplot(receive_signal2);
-title('½ÓÊÕĞÅºÅĞÇ×ùÍ¼');
+title('æ¥æ”¶ä¿¡å·æ˜Ÿåº§å›¾');
 scatterplot(demod_signal2);
-title('½âÂëĞÅºÅĞÇ×ùÍ¼');
+title('è§£ç ä¿¡å·æ˜Ÿåº§å›¾');
 
 

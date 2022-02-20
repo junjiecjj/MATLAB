@@ -1,41 +1,41 @@
 % https://zhuanlan.zhihu.com/p/57967971
 
 clear;
-%% ²ÎÊıÉèÖÃ
-sub_carriers=2048;%×ÓÔØ²¨Êı
+%% å‚æ•°è®¾ç½®
+sub_carriers=2048;%å­è½½æ³¢æ•°
 T = 1 / sub_carriers;
-time = [0:T:1-T];% Nifft·İ£¬Ã¿·İÏà¸ôT
+time = [0:T:1-T];% Nifftä»½ï¼Œæ¯ä»½ç›¸éš”T
 
 Lp=4984;
-P_Tx=(rand(1,Lp)>0.5);%(bits)%²úÉú1¸ö³¤ÎªLpµÄÊı¾İ°ü:
-conv_out=convolutional_en(P_Tx);%£¨¾í»ı±àÂë£©£º
+P_Tx=(rand(1,Lp)>0.5);%(bits)%äº§ç”Ÿ1ä¸ªé•¿ä¸ºLpçš„æ•°æ®åŒ…:
+conv_out=convolutional_en(P_Tx);%ï¼ˆå·ç§¯ç¼–ç ï¼‰ï¼š
 interleave_table = interleav_matrix(ones(1,2*(Lp+8)));
-interleav_out = interleaving(conv_out ,interleave_table);%£¨½»Ö¯Æ÷£©
+interleav_out = interleaving(conv_out ,interleave_table);%ï¼ˆäº¤ç»‡å™¨ï¼‰
 
-x=qpsk(interleav_out);%£¨4QAM µ÷ÖÆ£©
-L=length(x);%ĞÅºÅ³¤¶È
+x=qpsk(interleav_out);%ï¼ˆ4QAM è°ƒåˆ¶ï¼‰
+L=length(x);%ä¿¡å·é•¿åº¦
 
 s=48;
-symbol_used_len=L/s;%°ÑÊäÈë·ÖÎªS¸ö·ûºÅ£¬Ã¿¸ö·ûºÅ³¤Îªsymbol_used_len
-%Ñ­»·Ç°×ºµÄ³¤¶È
+symbol_used_len=L/s;%æŠŠè¾“å…¥åˆ†ä¸ºSä¸ªç¬¦å·ï¼Œæ¯ä¸ªç¬¦å·é•¿ä¸ºsymbol_used_len
+%å¾ªç¯å‰ç¼€çš„é•¿åº¦
 cp=256;
-%Ã¿Ò»¸öOFDM·ûºÅµÄ³éÑùÖµÓ¦²¹¡®0¡¯¸öÊızeros_pad
+%æ¯ä¸€ä¸ªOFDMç¬¦å·çš„æŠ½æ ·å€¼åº”è¡¥â€˜0â€™ä¸ªæ•°zeros_pad
 zeros_pad=sub_carriers-symbol_used_len;
-%Ã¿Ò»¸öOFDM·ûºÅÒ»²àÓ¦¸Ã²¹¡®0¡¯¸öÊızeros_pad_side
+%æ¯ä¸€ä¸ªOFDMç¬¦å·ä¸€ä¾§åº”è¯¥è¡¥â€˜0â€™ä¸ªæ•°zeros_pad_side
 zeros_pad_side=zeros_pad/2;
 
-%¶ÔÊäÈëĞÅºÅ½øĞĞ·Ö¸î£¬·Ö¸îÎªs¸ö·ûºÅ£¬ÔÙ¶ÔÃ¿¸ö·ûºÅ½øĞĞFFTÔËËã£¬ÊµÏÖOFDM½âµ÷,²¢±£Ö¤ÄÜÁ¿²»±ä
+%å¯¹è¾“å…¥ä¿¡å·è¿›è¡Œåˆ†å‰²ï¼Œåˆ†å‰²ä¸ºsä¸ªç¬¦å·ï¼Œå†å¯¹æ¯ä¸ªç¬¦å·è¿›è¡ŒFFTè¿ç®—ï¼Œå®ç°OFDMè§£è°ƒ,å¹¶ä¿è¯èƒ½é‡ä¸å˜
 time_domain_x_link=[];
 for I=0:(s-1)
-    %¶ÔÊäÈë½øĞĞ·Ö¸î 
+    %å¯¹è¾“å…¥è¿›è¡Œåˆ†å‰² 
     x_temp=x(I*symbol_used_len+1:I*symbol_used_len+symbol_used_len);
-    %¶ÔÃ¿¸ö·Ö¸îµÄ²¿·Ö½øĞĞ²¹Áã²Ù×÷£¬Ê¹Æä³¤Îªsub_carriers
+    %å¯¹æ¯ä¸ªåˆ†å‰²çš„éƒ¨åˆ†è¿›è¡Œè¡¥é›¶æ“ä½œï¼Œä½¿å…¶é•¿ä¸ºsub_carriers
     x_temp_pad=[zeros(1,zeros_pad_side),x_temp,zeros(1,zeros_pad_side)];
-    %¶ÔÃ¿¸ö·ûºÅ½øĞĞIFFTÔËËã
+    %å¯¹æ¯ä¸ªç¬¦å·è¿›è¡ŒIFFTè¿ç®—
     time_domain_x_temp=ifft(x_temp_pad)*sqrt(sub_carriers);
-    %¶ÔÃ¿¸ö·ûºÅÌí¼ÓÑ­»·Ç°×º
+    %å¯¹æ¯ä¸ªç¬¦å·æ·»åŠ å¾ªç¯å‰ç¼€
     time_domain_x_cp_temp=[time_domain_x_temp(sub_carriers-cp+1:sub_carriers),time_domain_x_temp];
-    %½«·ûºÅÁ¬½Ó³ÉÎª´®ĞĞÊı¾İÁ÷
+    %å°†ç¬¦å·è¿æ¥æˆä¸ºä¸²è¡Œæ•°æ®æµ
     time_domain_x_link=[time_domain_x_link,time_domain_x_cp_temp];
 
 end
@@ -43,9 +43,9 @@ sum_xI = real(time_domain_x_link);
 sum_xQ = imag(time_domain_x_link);
 
 figure;
-num=1000;%»­³öÇ°num¸öµã  
+num=1000;%ç”»å‡ºå‰numä¸ªç‚¹  
 xaxis   = zeros(length(time(1:num)));
 plot(time(1:num), sum_xI(1:num), 'b:', time(1:num), sum_xQ(1:num), 'g:', time(1:num), abs(sum_xI(1:num)+j*sum_xQ(1:num)), 'k-', time(1:num), xaxis, 'r-');
 ylabel('y'),xlabel('t'),
-title(['Ç°', num2str(num),'¸öµã¾­ifftµÄQAM·ûºÅÊµ²¿Ö®ºÍĞé²¿Ö®ºÍÒÔ¼°Êµ²¿ÓëĞé²¿µÄ¾ø¶ÔÖµ²¨ĞÎ']),
-legend('Êµ²¿Ö®ºÍ','Ğé²¿Ö®ºÍ', '¾ø¶ÔÖµ');
+title(['å‰', num2str(num),'ä¸ªç‚¹ç»ifftçš„QAMç¬¦å·å®éƒ¨ä¹‹å’Œè™šéƒ¨ä¹‹å’Œä»¥åŠå®éƒ¨ä¸è™šéƒ¨çš„ç»å¯¹å€¼æ³¢å½¢']),
+legend('å®éƒ¨ä¹‹å’Œ','è™šéƒ¨ä¹‹å’Œ', 'ç»å¯¹å€¼');

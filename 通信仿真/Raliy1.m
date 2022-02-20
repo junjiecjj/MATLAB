@@ -6,24 +6,24 @@ clear;
 
 %%  https://blog.csdn.net/Hsaver/article/details/110184154
 
-N=10000; % ĞòÁĞ³¤¶È
+N=10000; % åºåˆ—é•¿åº¦
 SNR=-5:5;
 M=2;
-tx=randi([0,M-1],N,1); % Ô­Ê¼ĞÅºÅ
-pskSig=pskmod(tx,M); % BPSKµ÷ÖÆ
+tx=randi([0,M-1],N,1); % åŸå§‹ä¿¡å·
+pskSig=pskmod(tx,M); % BPSKè°ƒåˆ¶
 
-%% ·½·¨Ò»£ºÈğÀûĞÅµÀ
-rayleighChan=comm.RayleighChannel(); % µ÷ÓÃ×Ô´øµÄÈğÀûĞÅµÀ
+%% æ–¹æ³•ä¸€ï¼šç‘åˆ©ä¿¡é“
+rayleighChan=comm.RayleighChannel(); % è°ƒç”¨è‡ªå¸¦çš„ç‘åˆ©ä¿¡é“
 fadeSig = rayleighChan(pskSig);
 
-%% ·½·¨¶ş£º¸´¸ßË¹·¨
+%% æ–¹æ³•äºŒï¼šå¤é«˜æ–¯æ³•
 h = (randn(N,1)+i*randn(N,1))/sqrt(2);
 fadeSig3 = h.*pskSig;
 
-%% ¸ßË¹ĞÅµÀ
+%% é«˜æ–¯ä¿¡é“
 awgnChan=comm.AWGNChannel('NoiseMethod','Signal to noise ratio (SNR)');
 
-%% ĞÅºÅÍ¨¹ıĞÅµÀ
+%% ä¿¡å·é€šè¿‡ä¿¡é“
 for i=1:length(SNR)
     awgnChan.SNR=SNR(i);
 
@@ -47,10 +47,10 @@ end
 
 BERtheory = berawgn(SNR','psk',M,'nondiff');
 semilogy(SNR,BERtheory,'-',SNR,BER4_awgn,'-*');
-legend('AWGNÀíÂÛ','AWGN·ÂÕæ','Location','southwest');
+legend('AWGNç†è®º','AWGNä»¿çœŸ','Location','southwest');
 hold on;
 
 semilogy(SNR,BER_rayleigh_awgn,'-^',SNR,BER3_rayleigh_awgn,'-x','MarkerSize',10);
-legend('AWGNÀíÂÛ','AWGN·ÂÕæ','×Ô´øÈğÀûĞÅµÀ','¸´¸ßË¹·¨','Location','southwest');
+legend('AWGNç†è®º','AWGNä»¿çœŸ','è‡ªå¸¦ç‘åˆ©ä¿¡é“','å¤é«˜æ–¯æ³•','Location','southwest');
 hold off;
 

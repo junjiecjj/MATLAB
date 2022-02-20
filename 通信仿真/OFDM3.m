@@ -27,25 +27,25 @@ subcarrierIndex = [-26:-1 1:26];
 
 
 for i=1:length(EbN0dB)
- x= rand(1,nbit)>0.5;                                          %Ëæ»ú²úÉú³¤¶ÈÎªnµÄ0»òÕß1
- x_reshape=reshape(x,k,length(x)/k)';                          %¶ÔÊı¾İÁ÷½øĞĞ·Ö×é£¬¶ÔÓÚ16QAM£¬ÔòÃ¿4Î»Ò»×é
- x_de=bi2de(x_reshape,'left-msb');                             %×ª»¯³É10½øÖÆ£¬×÷ÎªqammodµÄÊäÈë
- x_mod=qammod(x_de,M,'Gray');                                  %µ÷ÖÆµ½ĞÇ×ùÍ¼ÉÏ
- x_OFDM_symbol=reshape(x_mod,data_subcarriers,nOFDM_symbol);   %½«²úÉúµÄbit·ÖÅäµ½¸÷¸öOFDM symbol ÉÏ
+ x= rand(1,nbit)>0.5;                                          %éšæœºäº§ç”Ÿé•¿åº¦ä¸ºnçš„0æˆ–è€…1
+ x_reshape=reshape(x,k,length(x)/k)';                          %å¯¹æ•°æ®æµè¿›è¡Œåˆ†ç»„ï¼Œå¯¹äº16QAMï¼Œåˆ™æ¯4ä½ä¸€ç»„
+ x_de=bi2de(x_reshape,'left-msb');                             %è½¬åŒ–æˆ10è¿›åˆ¶ï¼Œä½œä¸ºqammodçš„è¾“å…¥
+ x_mod=qammod(x_de,M,'Gray');                                  %è°ƒåˆ¶åˆ°æ˜Ÿåº§å›¾ä¸Š
+ x_OFDM_symbol=reshape(x_mod,data_subcarriers,nOFDM_symbol);   %å°†äº§ç”Ÿçš„bitåˆ†é…åˆ°å„ä¸ªOFDM symbol ä¸Š
  x_before_ifft=zeros(64,1);
- for j=1:nOFDM_symbol                                         %·¢ÉäµÚj¸öOFDM symbol
-   x_before_ifft(subcarrierIndex+NFFT/2+1)=x_OFDM_symbol(:,j); %¸øµÚ6¸öµ½32ºÍ34µ½59¸ö×ÓÔØ²¨¸³Öµ
+ for j=1:nOFDM_symbol                                         %å‘å°„ç¬¬jä¸ªOFDM symbol
+   x_before_ifft(subcarrierIndex+NFFT/2+1)=x_OFDM_symbol(:,j); %ç»™ç¬¬6ä¸ªåˆ°32å’Œ34åˆ°59ä¸ªå­è½½æ³¢èµ‹å€¼
    
    X_IFFT=(sqrt(NFFT))*ifft(fftshift(x_before_ifft),NFFT).';
    s=[X_IFFT(NFFT-Ng+1:NFFT) X_IFFT].';
    n=randn(1,length(s)).'+1i*randn(1,length(s)).';
    n_w=Standard_variance(i)*n;
    y=s*(sqrt(Nsym/Nused))+n_w;
-   %È¥³ıÑ­»·Ç°×º
+   %å»é™¤å¾ªç¯å‰ç¼€
    y=y(Ng+1:Nsym);
-   %½øÈëFFT
+   %è¿›å…¥FFT
    yFFT=fftshift(fft(y,NFFT))*(sqrt(Nused)/sqrt(NFFT*Nsym));
-   %°Ñ¶ÔÓ¦×ÓÔØ²¨ÉÏµÄÊı¾İÌáÈ¡³öÀ´
+   %æŠŠå¯¹åº”å­è½½æ³¢ä¸Šçš„æ•°æ®æå–å‡ºæ¥
    yMod=yFFT(subcarrierIndex+NFFT/2+1);
    y_demod=qamdemod(yMod,M,'Gray');
    test=de2bi(y_demod,k,'left-msb');

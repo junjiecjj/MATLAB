@@ -2,21 +2,21 @@ theory_SNR=0:1:10;
 S_N=10.^(theory_SNR./10);
 simu_SNR=10*log10(2.*S_N);
 for SNR=0:1:10
-    Gaus_noise_signal=awgn(send_signal,simu_SNR(SNR+1)); %¼ÓÈë¸ßË¹ÔëÉùÐÅºÅ  
-    %Æ¥ÅäÂË²¨Æ÷+»æÖÆ½ÓÊÕÐÅºÅµÄ²¨ÐÎÍ¼+³éÑù
+    Gaus_noise_signal=awgn(send_signal,simu_SNR(SNR+1)); %åŠ å…¥é«˜æ–¯å™ªå£°ä¿¡å·  
+    %åŒ¹é…æ»¤æ³¢å™¨+ç»˜åˆ¶æŽ¥æ”¶ä¿¡å·çš„æ³¢å½¢å›¾+æŠ½æ ·
     receive_signal=Matched_filter(encoder_length,Matched_filter_length,Bipolar_signal(),Gaus_noise_signal);
-    %½ÓÊÜÐÅºÅµÄÐÇ×ùÍ¼
+    %æŽ¥å—ä¿¡å·çš„æ˜Ÿåº§å›¾
     %scatter_plot(receive_signal);
-    %title('½ÓÊÕÐÅºÅµÄÐÇ×ùÍ¼');
-    %Ó²ÅÐ¾ö
+    %title('æŽ¥æ”¶ä¿¡å·çš„æ˜Ÿåº§å›¾');
+    %ç¡¬åˆ¤å†³
     judge_signal(receive_signal>0)=1;
     judge_signal(receive_signal<=0)=0;
-    %ÎóÂëÂÊµÄÍ³¼Æ
-    [M,q]=biterr(Gen_code_mat,judge_signal); %Í³¼ÆÃ»ÓÐ¾­¹ý½âÂëµÄÎóÂëÂÊ
+    %è¯¯ç çŽ‡çš„ç»Ÿè®¡
+    [M,q]=biterr(Gen_code_mat,judge_signal); %ç»Ÿè®¡æ²¡æœ‰ç»è¿‡è§£ç çš„è¯¯ç çŽ‡
     X=reshape(judge_signal,length(judge_signal)/7,7);
     [I,A]=Block_decoder(X);
     B=reshape(I,1,sym_length);
-    [num,rate]=biterr(trans_binary,B); %·ÂÕæÍ³¼Æ¾­¹ý½âÂëµÄÎóÂëÊýÄ¿
+    [num,rate]=biterr(trans_binary,B); %ä»¿çœŸç»Ÿè®¡ç»è¿‡è§£ç çš„è¯¯ç æ•°ç›®
     simu_err_rate(SNR+1)=rate;
-    theory_err_rate(SNR+1)=0.5*erfc(sqrt(S_N(SNR+1)));%ÀíÂÛÎóÂëÂÊ
+    theory_err_rate(SNR+1)=0.5*erfc(sqrt(S_N(SNR+1)));%ç†è®ºè¯¯ç çŽ‡
 end
