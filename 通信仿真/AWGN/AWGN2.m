@@ -53,15 +53,16 @@ M=4;%QPSK的符号类型数
 SNR=-3:3;%SNR的范围
 grayencod=[0 1 3 2 ];%Gray编码格式
 for ii=1:length(SNR)
-    msg=randsrc(1,numSymb,[0:3]);%产生发送符号，1行numSymb列0-3的数。
-    msg_gr=grayencod(msg+1);%进行Gray编码影射（格雷码）
-    msg_tx=pskmod(msg_gr,M);%QPSK调制
-    msg_tx=rectpulse(msg_tx,nSamp);%矩形脉冲成型
-    msg_rx=awgn(msg_tx,SNR(ii),'measured');%通过AWGN信道
-    msg_rx_down=intdump(msg_rx,nSamp);%匹配滤波相干解调
-    msg_gr_demod=pskdemod(msg_rx_down,M);%QPSK解调
-    [dummy graydecod]=sort(grayencod);graydecod=graydecod-1;
-    msg_demod=graydecod(msg_gr_demod+1);%Gray编码逆映射
+    msg=randsrc(1,numSymb,[0:3]);%产生发送符号，1行numSymb列0-3的数。size(msg)=[1,200000]
+    msg_gr=grayencod(msg+1);%进行Gray编码影射（格雷码）,size(msg_gr)=[1,200000]
+    msg_tx=pskmod(msg_gr,M);%QPSK调制,size(msg_tx)=[1,200000]
+    msg_tx1=rectpulse(msg_tx,nSamp);%矩形脉冲成型,size(msg_gr1)=[1,1600000]
+    msg_rx=awgn(msg_tx1,SNR(ii),'measured');%通过AWGN信道,size(msg_rx)=[1,1600000]
+    msg_rx_down=intdump(msg_rx,nSamp);%匹配滤波相干解调,size(msg_rx_down)=[1,200000]
+    msg_gr_demod=pskdemod(msg_rx_down,M);%QPSK解调,size(msg_gr_demod)=[1,200000]
+    [dummy graydecod]=sort(grayencod);
+    graydecod=graydecod-1;
+    msg_demod=graydecod(msg_gr_demod+1);%Gray编码逆映射,size(msg_demod)=[1,200000]
     [errorBit BER(ii)]=biterr(msg,msg_demod,log2(M));%计算BER
     [errorSym SER(ii)]=symerr(msg,msg_demod);%计算SER
 end
