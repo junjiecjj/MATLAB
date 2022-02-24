@@ -1,89 +1,82 @@
+clc;
+clear;
+close all;
+
 clear;clc;close all
+%  https://ww2.mathworks.cn/help/matlab/ref/fft.html
 
-% %% *仿真正交相移键控（QPSK）调制的基带数字通信系统通过AWGN信道的误符号率（SER）和误比特率（BER），假设发射端信息比特采用Gray编码影射，基带脉冲采用矩形脉冲，仿真时每个脉冲的采样点数为8，接收端采用匹配滤波器进行相干解调。
+% fft
+% 快速傅里叶变换全页折叠
+% 语法
+% Y = fft(X)
+% Y = fft(X,n)
+% Y = fft(X,n,dim)
+% 说明
+% 示例
+% Y = fft(X) 用快速傅里叶变换 (FFT) 算法计算 X 的离散傅里叶变换 (DFT)。
 % 
-% % 代码如下：
-% %
-% %                    .::::.
-% %                  .::::::::.
-% %                 :::::::::::  
-% %             ..:::::::::::'
-% %           '::::::::::::'
-% %             .::::::::::
-% %        '::::::::::::::..
-% %             ..::::::::::::.
-% %           ``::::::::::::::::
-% %            ::::``:::::::::'        .:::.
-% %           ::::'   ':::::'       .::::::::.
-% %         .::::'      ::::     .:::::::'::::.
-% %        .:::'       :::::  .:::::::::' ':::::.
-% %       .::'        :::::.:::::::::'      ':::::.
-% %      .::'         ::::::::::::::'         ``::::.
-% %  ...:::           ::::::::::::'              ``::.
-% % ```` ':.          ':::::::::'                  ::::..
-% %                    '.:::::'                    ':'````..
-% %
-% clear all
-% nSamp=8;%矩形脉冲的采样点数
-% numSymb=200000;%每种SNR下传输的符号数
-% M=4;%QPSK的符号类型数
-% SNR=-3:3;%SNR的范围
-% grayencod=[0 1 3 2 ];%Gray编码格式
-% for ii=1:length(SNR)
-% % ii = 7;
-%     msg=randsrc(1,numSymb,[0:3]);%产生发送符号，1行numSymb列0-3的数。size(msg)=[1,200000]
-%     msg_gr=grayencod(msg+1);%进行Gray编码影射（格雷码）,size(msg_gr)=[1,200000]
-%     msg_tx=pskmod(msg_gr,M);%QPSK调制,size(msg_tx)=[1,200000]
-%     msg_tx1=rectpulse(msg_tx,nSamp);%矩形脉冲成型,size(msg_gr1)=[1,1600000]
-%     msg_rx=awgn(msg_tx1,SNR(ii),'measured');%通过AWGN信道,size(msg_rx)=[1,1600000]
-%     msg_rx_down=intdump(msg_rx,nSamp);%匹配滤波相干解调,size(msg_rx_down)=[1,200000]
-%     msg_gr_demod=pskdemod(msg_rx_down,M);%QPSK解调,size(msg_gr_demod)=[1,200000]
-%     [dummy graydecod]=sort(grayencod);
-%     graydecod=graydecod-1;
-%     msg_demod=graydecod(msg_gr_demod+1);%Gray编码逆映射,size(msg_demod)=[1,200000]
-%     [errorBit BER(ii)]=biterr(msg,msg_demod,log2(M));%计算BER
-%     [errorSym SER(ii)]=symerr(msg,msg_demod);%计算SER
-% end
+% 如果 X 是向量，则 fft(X) 返回该向量的傅里叶变换。
 % 
-% scatterplot(msg_tx(1:100))%画出发射信号星座图
-% title('发射信号星座图')
-% xlabel('同相分量')
-% ylabel('正交分量')
-% scatterplot(msg_rx(1:100))%画出接收信号星座图
-% title('接收信号星座图')
-% xlabel('同相分量')
-% ylabel('正交分量')
-% figure;
-% semilogy(SNR,BER,'-r*',SNR,SER,'-r*')%画出BER和SER随SNR变化的曲线
-% legend('BER','SER')
-% title('QPSK在AWGN信道下的性能')
-% xlabel('信噪比（dB）')
-% ylabel('误符号率和误比特率')
+% 如果 X 是矩阵，则 fft(X) 将 X 的各列视为向量，并返回每列的傅里叶变换。
+% 
+% 如果 X 是一个多维数组，则 fft(X) 将沿大小不等于 1 的第一个数组维度的值视为向量，并返回每个向量的傅里叶变换。
+% 
+% 示例
+% Y = fft(X,n) 返回 n 点 DFT。如果未指定任何值，则 Y 的大小与 X 相同。
+% 
+% 如果 X 是向量且 X 的长度小于 n，则为 X 补上尾零以达到长度 n。
+% 
+% 如果 X 是向量且 X 的长度大于 n，则对 X 进行截断以达到长度 n。
+% 
+% 如果 X 是矩阵，则每列的处理与在向量情况下相同。
+% 
+% 如果 X 为多维数组，则大小不等于 1 的第一个数组维度的处理与在向量情况下相同。
+% 
+% 示例
+% Y = fft(X,n,dim) 返回沿维度 dim 的傅里叶变换。例如，如果 X 是矩阵，则 fft(X,n,2) 返回每行的 n 点傅里叶变换。
 
+%=====================================================
+%   使用傅里叶变换求噪声中隐藏的信号的频率分量。
+%=====================================================
 
-%% 试用 Matlab 生成一个幅度为 1，以 t = 2T 为对称中心的矩形脉冲信号 y (t)
-% 矩形脉冲信号在 Matlab 中用 rectpuls 函数表示，其调用方式为：
-% y = rectpulse(t, width)
-% 用以产生一个幅度为 1，宽度为 width 以 t = 0 为对称中心的矩形脉冲波。Width 的默认值为 1。
-t1 = 0:0.01:4;
-t2 = t1-2;
-T1 = 1;
-yt1 = rectpuls(t1-2, 2)*2;
+%指定信号的参数，采样频率为 1 kHz，信号持续时间为 1.5 秒。
+
+Fs = 1000;            % Sampling frequency                    
+T = 1/Fs;             % Sampling period       
+L = 1500;             % Length of signal
+t = (0:L-1)*T;        % Time vector
+%构造一个信号，其中包含幅值为 0.7 的 50 Hz 正弦量和幅值为 1 的 120 Hz 正弦量。
+
+S = 0.7*sin(2*pi*50*t) + sin(2*pi*120*t);
+%用均值为零、方差为 4 的白噪声扰乱该信号。
+
+X = S + 2*randn(size(t));
+%在时域中绘制含噪信号。通过查看信号 X(t) 很难确定频率分量。
 figure(1);
-plot(t1, yt1)
-axis([-3, 5, 0, 2.2]);
+plot(1000*t,X)
+title('Signal Corrupted with Zero-Mean Random Noise')
+xlabel('t (milliseconds)')
+ylabel('X(t)')
 
-t2 = -2:0.01:2;
-T1 = 1;
-yt2 = rectpuls(t2, 2)*2;
+%计算信号的傅里叶变换。
+
+Y = fft(X);
+
+%计算双侧频谱 P2。然后基于 P2 和偶数信号长度 L 计算单侧频谱 P1。
+f = Fs*(0:L-1)/L;
+P2 = abs(Y/L);
+P1 = P2(1:L);
 figure(2);
-plot(t2, yt2)
-axis([-3, 5, 0, 2.2]);
+plot(f,P1) 
+
+% P1(2:end-1) = 2*P1(2:end-1);
+%定义频域 f 并绘制单侧幅值频谱 P1。与预期相符，由于增加了噪声，幅值并不精确等于 0.7 和 1。一般情况下，较长的信号会产生更好的频率近似值。
 
 % 
-% M = 8;							%调制阶数
-% data = randi([0 M-1],1000,1);	%生成随机序列作为待调制信号
-% txSig = pskmod(data,M,pi/M);	%调制，频偏pi/4
-% rxSig = awgn(txSig,20);			%白噪声，SNR=20dB
-% scatterplot(txSig)				%绘制发送信号的星座图
-% scatterplot(rxSig)				%绘制接收信号的星座图
+% figure(3);
+% plot(f,P1) 
+% title('Single-Sided Amplitude Spectrum of X(t)')
+% xlabel('f (Hz)')
+% ylabel('|P1(f)|')
+
+

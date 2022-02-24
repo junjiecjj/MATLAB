@@ -1,26 +1,34 @@
 % http://www.4k8k.xyz/article/weixin_36309562/115817406
-clear;clc;close all
+clear;
+clc;
+close all
+
+
 Fs = 128; % 采样频率
 T = 1/Fs; % 采样时间
 L = 256; % 信号长度
 t = (0:L-1)*T; % 时间
 x = 5 + 7*cos (2*pi*15*t - pi/6) + 3*cos (2*pi*40*t - pi/2); % cos 为底原始信号
-y = x + randn (size (t)); % 添加噪声 figure; plot (t，y)
+y = x + randn (size (t)); % 添加噪声 
+
+figure(1); 
+plot (t,y);
 
 title ('加噪声的信号')
 xlabel ('时间 (s)')
 
-N = 2^nextpow2 (L); % 采样点数，采样点数越大，分辨的频率越精确，N》=L，超出的部分信号补为 0
+N = 2^nextpow2 (L); % 采样点数，采样点数越大，分辨的频率越精确，N>=L，超出的部分信号补为 0
 Y = fft (y,N)/N*2; % 除以 N 乘以 2 才是真实幅值，N 越大，幅值精度越高
 f = Fs/N*(0:1:N-1); % 频率
 A = abs (Y); % 幅值
 P = angle (Y); % 相值
-figure;
-subplot (211);plot (f (1:N/2),A (1:N/2)); % 函数 fft 返回值的数据结构具有对称性，因此我们只取前一半
-
+figure(2);
+subplot (211);
+plot(f(1:N/2),A(1:N/2)); % 函数 fft 返回值的数据结构具有对称性，因此我们只取前一半
 title ('幅值频谱');
 xlabel ('频率 (Hz)');
 ylabel ('幅值');
+
 subplot(212);
 plot(f(1:N/2),P(1:N/2));
 title ('相位谱频');
@@ -31,7 +39,9 @@ ylabel ('相位');
 
 tp=0:2048; % 时域数据点数
 yt=sin (0.08*pi*tp).*exp (-tp/80); % 生成正弦衰减函数
-plot (tp,yt), axis ([0,400,-1,1]), % 绘正弦衰减曲线
+figure(3);
+plot(tp,yt);
+axis([0,400,-1,1]), % 绘正弦衰减曲线
 t=0:800/2048:800; % 频域点数 Nf
 f=0:1.25:1000;
 yf=fft (yt); % 快速傅立叶变换
@@ -40,7 +50,8 @@ yp=angle (yf (1:801))*180/pi; % 相位 y
 r=real (yf (1:801)); % 实部
 
 yi=imag (yf (1:801)); % 虚部
-figure; subplot(2,2,1)
+figure(4); 
+subplot(2,2,1)
 plot (f,ya),axis ([0,200,0,60]) % 绘制幅值曲线
 title ('幅值曲线')
 
@@ -59,9 +70,6 @@ title ('虚部曲线')
 
 %% 傅里叶变换 (fft) matlab 程序三
 
-clear all % 清除内存所有变量
-
-close all % 关闭所有打开的图形窗口
 
 %% 执行 FFT 点数与原信号长度相等 (100 点)
 
@@ -74,6 +82,7 @@ t=[0:N-1]*dt; % 时间序列
 xn=cos(2*pi*0.24*[0:99])+cos(2*pi*0.26*[0:99]);
 xn=[xn,zeros(1,N-100)]; % 原始信号的值序列
 
+figure(5);
 subplot (3,2,1) % 变量 @@@@@@@
 plot (t,xn) % 绘出原始信号
 xlabel ('时间 /s'),title ('原始信号 (向量长度为 100)') % 变量 @@@@@@@
