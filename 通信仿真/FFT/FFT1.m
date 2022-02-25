@@ -18,23 +18,43 @@ title ('加噪声的信号')
 xlabel ('时间 (s)')
 
 N = 2^nextpow2 (L); % 采样点数，采样点数越大，分辨的频率越精确，N>=L，超出的部分信号补为 0
+Y1 = fft(y,N);
 Y = fft(y,N)/N*2; % 除以 N 乘以 2 才是真实幅值，N 越大，幅值精度越高
 f = Fs/N*(0:1:N-1); % 频率
 A = abs(Y); % 幅值
 P = angle(Y); % 相值
+R=real(Y1); % 实部
+I=imag(Y1); % 虚部
+
 figure(2);
-subplot (211);
-plot(f(1:N/2),A(1:N/2)); % 函数 fft 返回值的数据结构具有对称性，因此我们只取前一半
+subplot (411);
+%plot(f(1:N/2),A(1:N/2)); % 函数 fft 返回值的数据结构具有对称性，因此我们只取前一半
+plot(f,A);
 title ('幅值频谱');
 xlabel ('频率 (Hz)');
 ylabel ('幅值');
 
-subplot(212);
-plot(f(1:N/2),P(1:N/2));
+subplot(412);
+%plot(f(1:N/2),P(1:N/2));
+plot(f ,P );
 title ('相位谱频');
 xlabel ('频率 (Hz)');
 ylabel ('相位');
 
+
+subplot(413);
+plot(f,R);
+% plot(f(1:N/2),R(1:N/2));
+title ('实部曲线');
+xlabel ('频率 (Hz)');
+ylabel ('实部');
+
+subplot(414);
+plot(f ,I);
+% plot(f(1:N/2) ,I(1:N/2));
+title ('虚部曲线');
+xlabel ('频率 (Hz)');
+ylabel ('虚部');
 %% 傅里叶变换 (fft) matlab 程序二
 
 tp=0:2048; % 时域数据点数
@@ -55,31 +75,29 @@ yi=imag(yf(1:801)); % 虚部
 figure(4); 
 subplot(2,2,1)
 plot(f,ya);
-axis([0,200,0,60]) % 绘制幅值曲线
+%axis([0,200,0,60]) % 绘制幅值曲线
 title('幅值曲线')
 
 subplot(2,2,2)
 plot(f,yp);
-axis([0,200,-200,10]) % 绘制相位曲线
+%axis([0,200,-200,10]) % 绘制相位曲线
 title('相位曲线')
 
 subplot(2,2,3)
 plot(f,r);
-axis([0,200,-40,40]) % 绘制实部曲线
+%axis([0,200,-40,40]) % 绘制实部曲线
 title('实部曲线')
 
 subplot(2,2,4)
 plot(f,yi);
-axis([0,200,-60,10]) % 绘制虚部曲线
+%axis([0,200,-60,10]) % 绘制虚部曲线
 title('虚部曲线')
-
-
 
 
 %% 傅里叶变换 (fft) matlab 程序三
 
 
-%% 执行 FFT 点数与原信号长度相等 (100 点)
+% 执行 FFT 点数与原信号长度相等 (100 点)
 
 % 构建原信号
 

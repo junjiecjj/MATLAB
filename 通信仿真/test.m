@@ -2,41 +2,61 @@ clc;
 clear;
 close all;
 
-%% 傅里叶变换 (fft) matlab 程序二
+%% *仿真正交相移键控（QPSK）调制的基带数字通信系统通过AWGN信道的误符号率（SER）和误比特率（BER），假设发射端信息比特采用Gray编码影射，基带脉冲采用矩形脉冲，仿真时每个脉冲的采样点数为8，接收端采用匹配滤波器进行相干解调。
 
-tp=0:2048; % 时域数据点数
-yt=sin(0.08*pi*tp).*exp (-tp/80); % 生成正弦衰减函数
-figure(3);
-plot(tp,yt);
-axis([0,400,-1,1]), % 绘正弦衰减曲线
-t=0:800/2048:800; % 频域点数 Nf
-f=0:1.25:1000;
-yf = fft(yt); % 快速傅立叶变换
+% 代码如下：
+%
+%                    .::::.
+%                  .::::::::.
+%                 :::::::::::  
+%             ..:::::::::::'
+%           '::::::::::::'
+%             .::::::::::
+%        '::::::::::::::..
+%             ..::::::::::::.
+%           ``::::::::::::::::
+%            ::::``:::::::::'        .:::.
+%           ::::'   ':::::'       .::::::::.
+%         .::::'      ::::     .:::::::'::::.
+%        .:::'       :::::  .:::::::::' ':::::.
+%       .::'        :::::.:::::::::'      ':::::.
+%      .::'         ::::::::::::::'         ``::::.
+%  ...:::           ::::::::::::'              ``::.
+% ```` ':.          ':::::::::'                  ::::..
+%                    '.:::::'                    ':'````..
+%
+clear all
+nSamp=8;%矩形脉冲的采样点数
+numSymb=200000;%每种SNR下传输的符号数
+M=4;%QPSK的符号类型数
+SNR=-3:3;%SNR的范围
+grayencod=[0 1 3 2 ];%Gray编码格式
+for ii=1:length(SNR)
+    msg=randsrc(1,numSymb,[0:3]);%产生发送符号，1行numSymb列0-3的数。size(msg)=[1,200000]
+    msg_gr=grayencod(msg+1);%进行Gray编码影射（格雷码）,size(msg_gr)=[1,200000]
+    msg_tx=pskmod(msg_gr,M);%QPSK调制,size(msg_tx)=[1,200000]
+    msg_tx1=rectpulse(msg_tx,nSamp);%矩形脉冲成型,size(msg_gr1)=[1,1600000]
+    msg_rx=awgn(msg_tx1,SNR(ii),'measured');%通过AWGN信道,size(msg_rx)=[1,1600000]
+    msg_rx_down=intdump(msg_rx,nSamp);%匹配滤波相干解调,size(msg_rx_down)=[1,200000]
+    msg_gr_demod=pskdemod(msg_rx_down,M);%QPSK解调,size(msg_gr_demod)=[1,200000]
+    [dummy graydecod]=sort(grayencod);
+    graydecod=graydecod-1;
+    msg_demod=graydecod(msg_gr_demod+1);%Gray编码逆映射,size(msg_demod)=[1,200000]
+    [errorBit BER(ii)]=biterr(msg,msg_demod,log2(M));%计算BER
+    [errorSym SER(ii)]=symerr(msg,msg_demod);%计算SER
+end
 
-ya=abs(yf(1:801)); % 幅值
-yp=angle(yf(1:801))*180/pi; % 相位
-
-r=real(yf(1:801)); % 实部
-yi=imag(yf(1:801)); % 虚部
-
-figure(4); 
-subplot(2,2,1)
-plot(f,ya);
-axis([0,200,0,60]) % 绘制幅值曲线
-title('幅值曲线')
-
-subplot(2,2,2)
-plot(f,yp);
-axis([0,200,-200,10]) % 绘制相位曲线
-title('相位曲线')
-
-subplot(2,2,3)
-plot(f,r);
-axis([0,200,-40,40]) % 绘制实部曲线
-title('实部曲线')
-
-subplot(2,2,4)
-plot(f,yi);
-axis([0,200,-60,10]) % 绘制虚部曲线
-title('虚部曲线')
-
+scatterplot(msg_tx(1:100))%画出发射信号星座图
+title('发射信号星座图')
+xlabel('同相分量')
+ylabel('正交分量')
+scatterplot(msg_rx(1:100))%画出接收信号星座图
+title('接收信号星座图')
+xlabel('同相分量')
+ylabel('正交分量')
+figure;
+semilogy(SNR,BER,'-r*',SNR,SER,'-r*')%画出BER和SER随SNR变化的曲线
+legend('BER','SER')
+title('QPSK在AWGN信道下的性能')
+xlabel('信噪比（dB）')
+ylabel('误符号率和误比特率')
