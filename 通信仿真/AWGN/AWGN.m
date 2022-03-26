@@ -34,7 +34,7 @@ zi=linspace(-2,2,100);
 f=ksdensity(z,zi,'function','cdf');
 plot(zi,f);title('概率分布函数');
 xlabel('x');ylabel('F(x)');
-
+ 
 [p,zi] = ksdensity(z);
 subplot(2,1,2);
 plot(zi,p);title('概率密度函数');
