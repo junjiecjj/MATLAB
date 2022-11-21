@@ -30,7 +30,7 @@ Y=X(1:N/2+1);              % 提取 X 里正频率的部分
 Y(2:end-1)=2*Y(2:end-1);   % 将 X 里负频率的部分合并到正频率
 
 % 计算频域序列 Y 的幅值和相角
-A=abs(Y);           % 计算频域序列 Y 的幅值
+A = abs(Y);           % 计算频域序列 Y 的幅值
 Pha=angle(Y);       % 计算频域序列 Y 的相角 (弧度制)
 R = real(Y);	% 计算频域序列 Y 的实部
 I = imag(Y);	% 计算频域序列 Y 的虚部
@@ -41,13 +41,13 @@ f=(0:1:N/2)*df;     % 频率刻度
 f=f';               % 为了方便查看, 将行向量 f 转置成列向量
 
 % 绘制时域采样信号 x 的波形
-figure
+figure(1)
 plot(t,x)
 xlabel('时间 [s]')
 ylabel('信号值 x(t)')
 
 % 绘制频域序列 Y 的幅频图 & 相频图
-figure
+figure(2)
 subplot(2,1,1)
 plot(f,A)         % 绘制频域序列 Y 的幅频图
 grid on
@@ -62,7 +62,7 @@ ylabel('Y 的相角')
 
 
 % 绘制频域序列 Y 的实部图 & 虚部图
-figure
+figure(3)
 subplot(2,1,1)
 plot(f,R)         % 绘制频域序列 Y 的实部图
 grid on
@@ -91,61 +91,61 @@ f2=45;              % 第二个余弦信号的频率
 x=4.5+2.7*cos(2*pi*f1*t+pi/4)+8.2*cos(2*pi*f2*t-pi/6);  % 定义时域采样信号 x
 
 % 对时域采样信号, 执行快速傅里叶变换 FFT
-X=fft(x);           % 执行 FFT 计算, 结果保存在 X 里
+X1=fft(x);           % 执行 FFT 计算, 结果保存在 X 里
 
 
 % 消除相位混乱
-X(abs(X)<1e-8)=0;   % 将频域序列 X 中, 幅值小于 1e-8 的数值置零
+X1(abs(X1)<1e-8)=0;   % 将频域序列 X 中, 幅值小于 1e-8 的数值置零
 
 % 修正频域序列的幅值, 使得 FFT 变换的结果有明确的物理意义
-X=X/N;              % 将频域序列 X 除以序列的长度 N
+X1=X1/N;              % 将频域序列 X 除以序列的长度 N
 
 
 % 将 X 重新排列, 把负频率部分搬移到序列的左边, 把正频率部分搬移到序列的右边
-Y=fftshift(X);      % 新的频域序列 Y
+Y1=fftshift(X1);      % 新的频域序列 Y
 
 % 计算频域序列 Y 的幅值和相角
-A=abs(Y);           % 计算频域序列 Y 的幅值
-Pha=angle(Y);       % 计算频域序列 Y 的相角 (弧度制)
-R = real(Y);	% 计算频域序列 Y 的实部
-I = imag(Y);	% 计算频域序列 Y 的虚部
+A1=abs(Y1);           % 计算频域序列 Y 的幅值
+Pha1=angle(Y1);       % 计算频域序列 Y 的相角 (弧度制)
+R1 = real(Y1);	% 计算频域序列 Y 的实部
+I1 = imag(Y1);	% 计算频域序列 Y 的虚部
 
 % 定义序列 Y 对应的频率刻度
-df=Fs/N;            % 频率间隔
-f=(-N/2:1:N/2-1)*df;     % 频率刻度
-f=f';               % 为了方便查看, 将行向量 f 转置成列向量
+df1=Fs/N;            % 频率间隔
+f1=(-N/2:1:N/2-1)*df1;     % 频率刻度
+f1=f1';               % 为了方便查看, 将行向量 f 转置成列向量
 
 % 绘制时域采样信号 x 的波形
-figure
+figure(4)
 plot(t,x)
 xlabel('时间 [s]')
 ylabel('信号值 x(t)')
 
 % 绘制频域序列 Y 的幅频图 & 相频图
-figure
+figure(5)
 subplot(2,1,1)
-plot(f,A)         % 绘制频域序列 Y 的幅频图
+plot(f1,A1)         % 绘制频域序列 Y 的幅频图
 grid on
 xlabel('频率 [Hz]')
 ylabel('Y 的幅值')
 
 subplot(2,1,2)
-plot(f,Pha)       % 绘制频域序列 Y 的相频图
+plot(f1,Pha1)       % 绘制频域序列 Y 的相频图
 grid on
 xlabel('频率 [Hz]')
 ylabel('Y 的相角')
 
 
 % 绘制频域序列 Y 的实部图 & 虚部图
-figure
+figure(6)
 subplot(2,1,1)
-plot(f,R)         % 绘制频域序列 Y 的实部图
+plot(f1,R1)         % 绘制频域序列 Y 的实部图
 grid on
 xlabel('频率 [Hz]')
 ylabel('Y 的实部')
 
 subplot(2,1,2)
-plot(f,I)       % 绘制频域序列 Y 的虚部图
+plot(f1,I1)       % 绘制频域序列 Y 的虚部图
 grid on
 xlabel('频率 [Hz]')
 ylabel('Y 的虚部')
@@ -157,7 +157,7 @@ ylabel('Y 的虚部')
 
 IX = ifft(X);
 % 绘制频域信号 x 的反傅里叶变换波形
-figure
+figure(7)
 plot(t,IX)
 xlabel('时间 [s]')
 ylabel('信号值 x(t)')

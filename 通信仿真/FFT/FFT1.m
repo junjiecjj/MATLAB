@@ -55,6 +55,7 @@ plot(f ,I);
 title ('虚部曲线');
 xlabel ('频率 (Hz)');
 ylabel ('虚部');
+
 %% 傅里叶变换 (fft) matlab 程序二
 
 tp=0:2048; % 时域数据点数
