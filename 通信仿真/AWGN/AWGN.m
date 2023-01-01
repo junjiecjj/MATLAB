@@ -4,7 +4,6 @@ close all;
 clear;
 
 % https://www.cnblogs.com/htj10/p/8610666.html
-
 % To specify the power of X to be 0 dBW and add noise to produce
 % an SNR of 10dB, use:
 X = sqrt(2)*sin(0:pi/8:6*pi);
@@ -35,7 +34,7 @@ zi=linspace(-2,2,100);
 f=ksdensity(z,zi,'function','cdf');
 plot(zi,f);title('概率分布函数');
 xlabel('x');ylabel('F(x)');
-
+ 
 [p,zi] = ksdensity(z);
 subplot(2,1,2);
 plot(zi,p);title('概率密度函数');
