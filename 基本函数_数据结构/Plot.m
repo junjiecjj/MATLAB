@@ -138,22 +138,22 @@ axis tight;
 
 xlabel('X');ylabel('Y');zlabel('Z');grid on;title('用颜色描述第四维');legend('用颜色描述第四维');
 
-savefig(fig,'D:\cjj\MATLAB\figure\12.fig','compact')
-saveas(gcf, 'D:\cjj\MATLAB\figure\12.jpg','jpg');
-saveas(gcf, 'D:\cjj\MATLAB\figure\12.png','png');
-saveas(gcf, 'D:\cjj\MATLAB\figure\12.eps','eps');
+savefig(fig,'12.fig','compact')
+saveas(gcf, '12.jpg','jpg');
+saveas(gcf, '12.png','png');
+saveas(gcf, '12.eps','eps');
 %%%%%%%%%%%%%%%%%%%%%%%%%%% 13  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 fig = figure(13);
 fig = gcf; % current figure handle
 subplot(2,2,1);plot(rand(1,20));title('grid off');xlabel('X');ylabel('Y');zlabel('Z');
 subplot(2,2,2);plot(rand(1,20));grid on;title('grid on');xlabel('X');ylabel('Y');zlabel('Z');
 subplot(2,2,[3,4]);plot(rand(1,20));grid(gca,'minor');title('grid minor');xlabel('X');ylabel('Y');zlabel('Z');title('grid minor');legend('grid minor');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.jpg','jpg');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.png','png');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.eps','eps');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.emf','emf');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.pdf','pdf');
-saveas(gcf, 'D:\cjj\MATLAB\figure\13.bmp','bmp');
+saveas(gcf, '13.jpg','jpg');
+saveas(gcf, '13.png','png');
+saveas(gcf, '13.eps','eps');
+
+saveas(gcf, '13.pdf','pdf');
+saveas(gcf, '13.bmp','bmp');
 
 
 
