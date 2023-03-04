@@ -109,6 +109,7 @@ LDPC5GNoExtraFer = [
 %第一组数据，第一列是Eb/N0或SNR, 第二列是BER，第三列是WER，下同。
 LDPC5GFreeRideExtra1BitExtraBerFer = [...
 0.000000  0.0277023658  0.0277023658
+0.250000  0.0096264921  0.0096264921
 0.500000  0.0023673570  0.0023673570
 1.000000  0.0000250000  0.0000250000
 ];
@@ -117,6 +118,7 @@ LDPC5GFreeRideExtra1BitExtraBerFer = [...
 %The following results correspond to Setup_of_BPSK_AWGN0.txt
 LDPC5GFreeRideExtra1BitPayloadBerFer = [...
 0.000000 0.1695081791  0.9956230262
+0.250000 0.1361787138  0.9467558722
 0.500000 0.0902647746  0.7433074818
 1.000000 0.0111053406  0.1133065000
 1.500000 0.0001254078  0.0014485000
@@ -191,16 +193,16 @@ LDPC5GFreeRideExtra10BitPayloadBerFer = [...
 h = figure(1);
 % fig(h, 'units','inches','width',width, 'height', height, 'font','Times New Roman','fontsize',fontsize);%这是用于裁剪figure的。需要把fig.m文件放在一个文件夹中
 
-ColorSet = [...
-         0         0    1.0000
-         0    0.5000         0
-    1.0000         0         0
-         0    0.7500    0.7500
-    0.7500         0    0.7500
-    0.7500    0.7500         0
-   0.2500    0.2500     0.2500
-];%颜色集合，这是默认的八种颜色，颜色的数量可以更改
-set(gcf, 'DefaultAxesColorOrder', ColorSet);%设置循环使用的颜色集合
+% ColorSet = [...
+%          0         0    1.0000
+%          0    0.5000         0
+%     1.0000         0         0
+%          0    0.7500    0.7500
+%     0.7500         0    0.7500
+%     0.7500    0.7500         0
+%    0.2500    0.2500     0.2500
+% ];%颜色集合，这是默认的八种颜色，颜色的数量可以更改
+% set(gcf, 'DefaultAxesColorOrder', ColorSet);%设置循环使用的颜色集合
 
 %------------------------------ 0: No Extra ---------------------------
 % %纵坐标对数域，如果不需要对数改为plot
@@ -230,7 +232,7 @@ P12.LineStyle = "--";
 P12.LineWidth=3;
 P12.Color = "r";
 P12.Marker = "o";
-P12.MarkerSize=15;
+P12.MarkerSize=18;
 hold on;
 
 
