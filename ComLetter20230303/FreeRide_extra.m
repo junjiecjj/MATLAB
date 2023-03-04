@@ -90,6 +90,7 @@ LDPC5GNoExtraBer  = [
 1.000000 0.0115016044
 1.250000 0.0015711885
 1.500000 0.0001291701
+1.750000 0.0000063439
 ];
 
 LDPC5GNoExtraFer = [
@@ -100,7 +101,9 @@ LDPC5GNoExtraFer = [
 1.000000 0.1166861144
 1.250000 0.0169877349
 1.500000 0.0014351897
+1.750000 0.0000855838
 ];
+
 
 
 %第一组数据，第一列是Eb/N0或SNR, 第二列是BER，第三列是WER，下同。
@@ -126,12 +129,14 @@ LDPC5GFreeRideExtra2BitExtraBerFer = [...
 0.000000  0.0473476854  0.0703531729
 0.250000  0.0179997841  0.0269861831
 0.500000  0.0039655110  0.0060634724
+0.750000  0.0006277281  0.0009383081
 ];
 
 LDPC5GFreeRideExtra2BitPayloadBerFer = [...
 0.000000 0.1838549728  0.9952159842
 0.250000 0.1418919170  0.9472420121
 0.500000 0.0914873711  0.7425752780
+0.750000 0.0412932836  0.3859083010
 ];
 
 %第三组数据
@@ -139,12 +144,14 @@ LDPC5GFreeRideExtra4BitExtraBerFer = [...
 0.000000  0.0835652443  0.1546072975
 0.250000  0.0362813370  0.0696378830
 0.500000  0.0097517411  0.0180420741
+0.750000  0.0017736432  0.0032189532
 ];
 
 LDPC5GFreeRideExtra4BitPayloadBerFer = [...
 0.000000 0.2104775433  0.9959802103
 0.250000 0.1559486711  0.9443593315
 0.500000 0.0955580601  0.7428463176
+0.750000 0.0423233868  0.3876038112
 ];
 
 
@@ -153,24 +160,27 @@ LDPC5GFreeRideExtra6BitExtraBerFer = [...
 0.000000  0.1498462130  0.2883506344
 0.250000  0.0699818347  0.1362397820
 0.500000  0.0209448138  0.0405383493
+0.750000  0.0035813468  0.0068739861
 ];
 
 LDPC5GFreeRideExtra6BitPayloadBerFer = [...
 0.000000 0.2551212274  0.9959630911
 0.250000 0.1794964805  0.9467302452
 0.500000 0.1042264185  0.7495540782
+0.750000 0.0433801151  0.3847851192
 ];
 
 %第5组数据
 LDPC5GFreeRideExtra10BitExtraBerFer = [...
 0.000000  0.2763392857  0.5580357143
 0.250000  0.1552850737  0.3203074952
-
+0.500000  0.0580246914  0.1143118427
 ];
 
 LDPC5GFreeRideExtra10BitPayloadBerFer = [...
 0.000000 0.3453578404  0.9966517857
 0.250000 0.2440819854  0.9500320307
+0.500000 0.1308471698  0.7445130316
 ];
 
 
@@ -207,169 +217,100 @@ set(gcf, 'DefaultAxesColorOrder', ColorSet);%设置循环使用的颜色集合
 %-------------------------------  0: No Extra -------------------------
 P01 = semilogy(LDPC5GNoExtraFer(:,1), LDPC5GNoExtraFer(:,2)); 
 P01.LineStyle = "--";
-P01.LineWidth=2;
+P01.LineWidth=3;
 P01.Color = "k";
 P01.Marker = "*";
-P01.MarkerSize=7;
+P01.MarkerSize=12;
 hold on;
 
+
+%-------------------------------10 Payload -------------------------
+P102 = semilogy(LDPC5GFreeRideExtra10BitPayloadBerFer(:,1), LDPC5GFreeRideExtra10BitPayloadBerFer(:,3)); 
+P102.LineStyle = "--";
+P102.LineWidth=3;
+P102.Color = "#EDB120";
+P102.Marker = "square";
+P102.MarkerSize=15;
 hold on;
-grid on; 
-set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
-set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
 
 
 %------------------------------1 Extra ---------------------------
 %纵坐标对数域，如果不需要对数改为plot
 P11 = semilogy(LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3)); 
 P11.LineStyle = "-";
-P11.LineWidth=2;
+P11.LineWidth=3;
 P11.Color = "b";
 P11.Marker = "x";
 %P11.MarkerEdgeColor="auto"; %标记轮廓颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。默认值 "auto" 使用与 Color 属性相同的颜色。
 %P11.MarkerFaceColor="auto"; %标记填充颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。"auto" 选项使用与父坐标区的 Color 属性相同的颜色。如果您指定 "auto"，并且坐标区图框不可见，则标记填充颜色为图窗的颜色。
-P11.MarkerSize=12;
+P11.MarkerSize=20;
 hold on;
 
 %-------------------------------2 Extra --------------------------
 %纵坐标对数域，如果不需要对数改为plot
 P21 = semilogy(LDPC5GFreeRideExtra2BitExtraBerFer(:,1), LDPC5GFreeRideExtra2BitExtraBerFer(:,3)); 
 P21.LineStyle = "-";
-P21.LineWidth=2;
+P21.LineWidth=3;
 P21.Color = "b";
 P21.Marker = "^";
 %P1.MarkerEdgeColor="auto"; %标记轮廓颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。默认值 "auto" 使用与 Color 属性相同的颜色。
 %P1.MarkerFaceColor="auto"; %标记填充颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。"auto" 选项使用与父坐标区的 Color 属性相同的颜色。如果您指定 "auto"，并且坐标区图框不可见，则标记填充颜色为图窗的颜色。
-P21.MarkerSize=8;
+P21.MarkerSize=15;
 hold on;
 
 %-------------------------------4 Extra --------------------------
 %纵坐标对数域，如果不需要对数改为plot
 P41 = semilogy(LDPC5GFreeRideExtra4BitExtraBerFer(:,1), LDPC5GFreeRideExtra4BitExtraBerFer(:,3)); 
 P41.LineStyle = "-";
-P41.LineWidth=2;
+P41.LineWidth=3;
 P41.Color = "b";
 P41.Marker = "hexagram";
 %P1.MarkerEdgeColor="auto"; %标记轮廓颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。默认值 "auto" 使用与 Color 属性相同的颜色。
 %P1.MarkerFaceColor="auto"; %标记填充颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。"auto" 选项使用与父坐标区的 Color 属性相同的颜色。如果您指定 "auto"，并且坐标区图框不可见，则标记填充颜色为图窗的颜色。
-P41.MarkerSize=10;
+P41.MarkerSize=15;
 hold on;
 
 %-------------------------------6 Extra --------------------------
 %纵坐标对数域，如果不需要对数改为plot
 P61 = semilogy(LDPC5GFreeRideExtra6BitExtraBerFer(:,1), LDPC5GFreeRideExtra6BitExtraBerFer(:,3)); 
 P61.LineStyle = "-";
-P61.LineWidth=2;
+P61.LineWidth=3;
 P61.Color = "b";
 P61.Marker = "pentagram";
 %P1.MarkerEdgeColor="auto"; %标记轮廓颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。默认值 "auto" 使用与 Color 属性相同的颜色。
 %P1.MarkerFaceColor="auto"; %标记填充颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。"auto" 选项使用与父坐标区的 Color 属性相同的颜色。如果您指定 "auto"，并且坐标区图框不可见，则标记填充颜色为图窗的颜色。
-P61.MarkerSize=10;
+P61.MarkerSize=15;
 hold on;
 
 %-------------------------------10 Extra --------------------------
 %纵坐标对数域，如果不需要对数改为plot
 P101 = semilogy(LDPC5GFreeRideExtra10BitExtraBerFer(:,1), LDPC5GFreeRideExtra10BitExtraBerFer(:,3)); 
 P101.LineStyle = "-";
-P101.LineWidth=2;
+P101.LineWidth=3;
 P101.Color = "b";
 P101.Marker = "square";
 %P1.MarkerEdgeColor="auto"; %标记轮廓颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。默认值 "auto" 使用与 Color 属性相同的颜色。
 %P1.MarkerFaceColor="auto"; %标记填充颜色，指定为 "auto"、RGB 三元组、十六进制颜色代码、颜色名称或短名称。"auto" 选项使用与父坐标区的 Color 属性相同的颜色。如果您指定 "auto"，并且坐标区图框不可见，则标记填充颜色为图窗的颜色。
-P101.MarkerSize=10;
+P101.MarkerSize=15;
 hold on;
-
-
-%-------------------------------1 Payload -------------------------
-P12 = semilogy(LDPC5GFreeRideExtra1BitPayloadBerFer(:,1), LDPC5GFreeRideExtra1BitPayloadBerFer(:,3)); 
-P12.LineStyle = "--";
-P12.LineWidth=2;
-P12.Color = "r";
-P12.Marker = "diamond";
-P12.MarkerSize=7;
-hold on;
-
-hold on;
-grid on; 
-
-
-%-------------------------------2 Payload -------------------------
-P22 = semilogy(LDPC5GFreeRideExtra2BitPayloadBerFer(:,1), LDPC5GFreeRideExtra2BitPayloadBerFer(:,3)); 
-P22.LineStyle = "--";
-P22.LineWidth=2;
-P22.Color = "g";
-P22.Marker = "diamond";
-P22.MarkerSize=7;
-hold on;
-
-hold on;
-grid on; 
-set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
-set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
-
-
-
-%-------------------------------4 Payload -------------------------
-P42 = semilogy(LDPC5GFreeRideExtra4BitPayloadBerFer(:,1), LDPC5GFreeRideExtra4BitPayloadBerFer(:,3)); 
-P42.LineStyle = "--";
-P42.LineWidth=2;
-P42.Color = "m";
-P42.Marker = "diamond";
-P42.MarkerSize=7;
-hold on;
-
-hold on;
-grid on; 
-set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
-set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
-
-
-
-%-------------------------------6 Payload -------------------------
-P62 = semilogy(LDPC5GFreeRideExtra6BitPayloadBerFer(:,1), LDPC5GFreeRideExtra6BitPayloadBerFer(:,3)); 
-P62.LineStyle = "--";
-P62.LineWidth=2;
-P62.Color = "#0072BD";
-P62.Marker = "diamond";
-P62.MarkerSize=7;
-hold on;
-
-hold on;
-grid on; 
-set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
-set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
-
-
-
-%-------------------------------10 Payload -------------------------
-P102 = semilogy(LDPC5GFreeRideExtra10BitPayloadBerFer(:,1), LDPC5GFreeRideExtra10BitPayloadBerFer(:,3)); 
-P102.LineStyle = "--";
-P102.LineWidth=2;
-P102.Color = "#EDB120";
-P102.Marker = "diamond";
-P102.MarkerSize=7;
-hold on;
-
-hold on;
-grid on; 
-set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
-set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
-
 
 %---------------------------------------------------------
-h_legend = legend('Payload data,${\ell}$=0', ...
+hold on;
+grid on; 
+set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
+set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
+
+
+%-------------------------------------------------------------------
+h_legend = legend('Payload data,without extra data', ...
+                   'Payload data,${\ell}$=10',...
                   'Extra data,${\ell}$=1',...
                   'Extra data,${\ell}$=2',...
                   'Extra data,${\ell}$=4',...
                   'Extra data,${\ell}$=6',...
-                  'Extra data,${\ell}$=10',...
-                  'Payload data,${\ell}$=1', ...
-                  'Payload data,${\ell}$=2', ...
-                  'Payload data,${\ell}$=4',...
-                  'Payload data,${\ell}$=6',...
-                  'Payload data,${\ell}$=10'...
+                  'Extra data,${\ell}$=10'...
                   );  %图例，与上面的曲线先后对应
-set(h_legend,'FontName','Times New Roman','FontSize',26,'FontWeight','normal');
+set(h_legend,'FontName','Times New Roman','FontSize',22,'FontWeight','normal','Location','NorthEast');
 set(h_legend,'Interpreter','latex');
 
 
@@ -386,14 +327,14 @@ set(gcf,'color','white');  % 设置背景是白色的 原先是灰色的 论文�
 set(gca, 'XTick', 0:0.5:11);  % 设置x坐标轴的刻度
 %set(gca, 'YTick',(0:2:32))   % 设置y坐标轴的刻度
 set(gca,'linewidth',1);       % 设置坐标轴粗细
-set(gca, 'FontSize',28)        % 设置坐标轴的数字大小，包括xlabel/ylabel文字大小.
+set(gca, 'FontSize',38,'FontName','Times New Roman')        % 设置坐标轴的数字大小，包括xlabel/ylabel文字大小.
 % set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 % set(get(gca,'Children'), 'MarkerEdgeColor','b', 'MarkerFaceColor','b');% 设置标记颜色,统一颜色。
 axis([0 2.5 1e-6 1]);         % 横纵坐标范围
 
 
-print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.eps');%保存为eps格式的图片color
-exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.pdf','ContentType','vector')
+print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_extra.eps');%保存为eps格式的图片color
+exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_extra.pdf','ContentType','vector')
 % saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
 
  

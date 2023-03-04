@@ -114,9 +114,9 @@ set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 % set(get(gca,'Children'), 'MarkerEdgeColor','b', 'MarkerFaceColor','b');% 设置标记颜色,统一颜色。
 % axis([0 2.5 1e-6 1]);         % 横纵坐标范围
 
-print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.eps');%保存为eps格式的图片color
-exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.pdf','ContentType','vector')
-% saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
-
- 
+% print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.eps');%保存为eps格式的图片color
+% exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.pdf','ContentType','vector')
+% % saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
+% 
+%  
 
