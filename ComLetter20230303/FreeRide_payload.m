@@ -220,7 +220,7 @@ P01.LineStyle = "--";
 P01.LineWidth=3;
 P01.Color = "k";
 P01.Marker = "*";
-P01.MarkerSize=7;
+P01.MarkerSize=15;
 hold on;
 
 
@@ -298,6 +298,7 @@ set(h_legend,'Interpreter','latex');
 xlabel('SNR(dB)','FontName','Times New Roman','FontSize',28,'FontWeight','normal','Color','k','Interpreter','latex');%横坐标标号
 ylabel('WER','FontName','Times New Roman','FontSize',28,'FontWeight','normal','Color','k','Interpreter','latex');%纵坐标标号
 
+% gca表示对axes的设置；  gcf表示对figure的设置
 set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
 set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
 
@@ -308,11 +309,12 @@ set(gcf,'color','white');  % 设置背景是白色的 原先是灰色的 论文�
 set(gca, 'XTick', 0:0.5:11);  % 设置x坐标轴的刻度
 %set(gca, 'YTick',(0:2:32))   % 设置y坐标轴的刻度
 set(gca,'linewidth',1);       % 设置坐标轴粗细
-set(gca, 'FontSize',38,'FontName','Times New Roman')      % 设置坐标轴的数字大小，包括xlabel/ylabel文字大小.
+set(gca, 'FontSize',36,'FontName','Times New Roman')      % 设置坐标轴的数字大小，包括xlabel/ylabel文字大小.
 % set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 % set(get(gca,'Children'), 'MarkerEdgeColor','b', 'MarkerFaceColor','b');% 设置标记颜色,统一颜色。
 axis([0 2.5 1e-6 1]);         % 横纵坐标范围
-
+% set(gca,'position',[0.1, 0.1, 0.8, 0.8] );
+% set(gcf,'unit','normalized','position',[0.5,0.5,1.1,1.1]);%figture位置，最下角，宽高
 
 print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_payload.eps');%保存为eps格式的图片color
 exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_payload.pdf','ContentType','vector')

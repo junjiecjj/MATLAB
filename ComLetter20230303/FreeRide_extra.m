@@ -317,6 +317,7 @@ set(h_legend,'Interpreter','latex');
 xlabel('SNR(dB)','FontName','Times New Roman','FontSize',28,'FontWeight','normal','Color','k','Interpreter','latex');%横坐标标号
 ylabel('WER','FontName','Times New Roman','FontSize',28,'FontWeight','normal','Color','k','Interpreter','latex');%纵坐标标号
 
+% gca表示对axes的设置；  gcf表示对figure的设置
 set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
 set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
 
