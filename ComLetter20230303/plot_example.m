@@ -11,28 +11,49 @@ markersize = 10;%标记的大小，按照个人喜好设置。
 
 
 %下面是数据
-
-%第0组数据
-LDPC5GNoExtraBerFer = [...
-
+%第0组数据,没有额外比特
+LDPC5GNoExtraBer  = [
+0.000000 0.1600611772
+0.250000 0.1306803995
+0.500000 0.0865661982
+0.750000 0.0389888584
+1.000000 0.0115016044
+1.250000 0.0015711885
+1.500000 0.0001291701
+1.750000 0.0000063439
+2.000000 0.0000004266
 ];
 
-LDPC5GNoExtraBerFer = [...
-
+LDPC5GNoExtraFer = [
+0.000000 0.9920634921
+0.250000 0.9363295880
+0.500000 0.7396449704
+0.750000 0.3663003663
+1.000000 0.1166861144
+1.250000 0.0169877349
+1.500000 0.0014351897
+1.750000 0.0000855838
+2.000000 0.0000113000
 ];
 
-%第一组数据，第一列是Eb/N0, 第二列是BER，下同。
-LDPC5GFreeRideExtra1BitExtraBerFer = [
+
+
+%第一组数据，第一列是Eb/N0或SNR, 第二列是BER，第三列是WER，下同。
+LDPC5GFreeRideExtra1BitExtraBerFer = [...
 0.000000  0.0277023658  0.0277023658
+0.250000  0.0096264921  0.0096264921
 0.500000  0.0023673570  0.0023673570
+0.750000  0.0003360000  0.0003360000
 1.000000  0.0000250000  0.0000250000
 ];
 
- 
+
 %The following results correspond to Setup_of_BPSK_AWGN0.txt
 LDPC5GFreeRideExtra1BitPayloadBerFer = [...
 0.000000 0.1695081791  0.9956230262
+0.250000 0.1361787138  0.9467558722
 0.500000 0.0902647746  0.7433074818
+0.750000 0.0411093734  0.3859320000
 1.000000 0.0111053406  0.1133065000
 1.500000 0.0001254078  0.0014485000
 2.000000 0.0000002755  0.0000090000
@@ -41,31 +62,69 @@ LDPC5GFreeRideExtra1BitPayloadBerFer = [...
 %第二组数据
 %The results correspond to .\Set_up\Setup_of_BlockCodeCRC_BPSK_AWGN0.txt
 LDPC5GFreeRideExtra2BitExtraBerFer = [...
-
+0.000000  0.0473476854  0.0703531729
+0.250000  0.0179997841  0.0269861831
+0.500000  0.0039655110  0.0060634724
+0.750000  0.0006277281  0.0009383081
+1.000000  0.0000550000  0.0000770000
+1.250000  0.0000005000  0.0000010000
 ];
 
 LDPC5GFreeRideExtra2BitPayloadBerFer = [...
+0.000000 0.1838549728  0.9952159842
+0.250000 0.1418919170  0.9472420121
+0.500000 0.0914873711  0.7425752780
+0.750000 0.0412932836  0.3859083010
+1.000000 0.0111733911  0.1136940000
+1.250000 0.0016257687  0.0175260000
+];
 
+%第三组数据
+LDPC5GFreeRideExtra4BitExtraBerFer = [...
+0.000000  0.0835652443  0.1546072975
+0.250000  0.0362813370  0.0696378830
+0.500000  0.0097517411  0.0180420741
+0.750000  0.0017736432  0.0032189532
+1.000000  0.0001445000  0.0002700000
+];
+
+LDPC5GFreeRideExtra4BitPayloadBerFer = [...
+0.000000 0.2104775433  0.9959802103
+0.250000 0.1559486711  0.9443593315
+0.500000 0.0955580601  0.7428463176
+0.750000 0.0423233868  0.3876038112
+1.000000 0.0112560359  0.1136600000
 ];
 
 
-%第三组数据
+%第4组数据
 LDPC5GFreeRideExtra6BitExtraBerFer = [...
-
+0.000000  0.1498462130  0.2883506344
+0.250000  0.0699818347  0.1362397820
+0.500000  0.0209448138  0.0405383493
+0.750000  0.0035813468  0.0068739861
 ];
 
 LDPC5GFreeRideExtra6BitPayloadBerFer = [...
-
+0.000000 0.2551212274  0.9959630911
+0.250000 0.1794964805  0.9467302452
+0.500000 0.1042264185  0.7495540782
+0.750000 0.0433801151  0.3847851192
 ];
 
-%第四组数据
+%第5组数据
 LDPC5GFreeRideExtra10BitExtraBerFer = [...
-
+0.000000  0.2763392857  0.5580357143
+0.250000  0.1552850737  0.3203074952
+0.500000  0.0580246914  0.1143118427
 ];
 
 LDPC5GFreeRideExtra10BitPayloadBerFer = [...
-
+0.000000 0.3453578404  0.9966517857
+0.250000 0.2440819854  0.9500320307
+0.500000 0.1308471698  0.7445130316
 ];
+
 
 
 
@@ -76,6 +135,8 @@ LDPC5GFreeRideExtra10BitPayloadBerFer = [...
 
 h = figure(1);
 fig(h, 'units','inches','width',width, 'height', height, 'font','Times New Roman','fontsize',fontsize);%这是用于裁剪figure的。需要把fig.m文件放在一个文件夹中
+
+
 
 ColorSet = [...
          0         0    1.0000
@@ -89,30 +150,63 @@ ColorSet = [...
 set(gcf, 'DefaultAxesColorOrder', ColorSet);%设置循环使用的颜色集合
 
 %纵坐标对数域，如果不需要对数改为plot
-semilogy(LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3), 'm--o', ...
-         LDPC5GFreeRideExtra1BitPayloadBerFer(:,1), LDPC5GFreeRideExtra1BitPayloadBerFer(:,3), 'k-d');
+semilogy(LDPC5GNoExtraFer(:,1), LDPC5GNoExtraFer(:,2), 'k--*', ...
+         LDPC5GFreeRideExtra10BitPayloadBerFer(:,1), LDPC5GFreeRideExtra10BitPayloadBerFer(:,3), 'r--s', ...
+         LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3), 'b-x', ...
+         LDPC5GFreeRideExtra2BitExtraBerFer(:,1), LDPC5GFreeRideExtra2BitExtraBerFer(:,3), 'b-^', ...
+         LDPC5GFreeRideExtra4BitExtraBerFer(:,1), LDPC5GFreeRideExtra4BitExtraBerFer(:,3), 'b-h', ...
+         LDPC5GFreeRideExtra6BitExtraBerFer(:,1), LDPC5GFreeRideExtra6BitExtraBerFer(:,3), 'b-p', ...
+         LDPC5GFreeRideExtra10BitExtraBerFer(:,1), LDPC5GFreeRideExtra10BitExtraBerFer(:,3), 'b-s');
 
 
+%---------------------------------------------------------
 hold on;
-grid on; % 显示网格
+grid on; 
+set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
+set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
+set(gca,'gridlinestyle','--','Gridalpha',0.2,'LineWidth',0.01,'Layer','bottom');
 
-h_legend = legend('Payload data,${\ell}$=1',...
-                  'Extra data,${\ell}$=1');  %图例，与上面的曲线先后对应
+% gca表示对axes的设置；  gcf表示对figure的设置
+%-------------------------------------------------------------------
+scalesize = 28;
+% 设置坐标轴的数字大小，包括xlabel/ylabel文字(坐标轴标注)大小.同时影响图例、标题等,除非它们被单独设置。所以一开始就使用这行先设置刻度字体字号，然后在后面在单独设置坐标轴标注、图例、标题等的 字体字号。
+set(gca, 'FontSize',fontsize,'FontName','Times New Roman');
+
+
+h_legend = legend('Payload data,without extra data', ...
+                   'Payload data, ${\ell}$=10',...
+                  'Extra data, ${\ell}$=1',...
+                  'Extra data, ${\ell}$=2',...
+                  'Extra data, ${\ell}$=4',...
+                  'Extra data, ${\ell}$=6',...
+                  'Extra data, ${\ell}$=10'...
+                  );  %图例，与上面的曲线先后对应
+legendsize = 12;
+set(h_legend,'FontName','Times New Roman','FontSize',legendsize,'FontWeight','normal','LineWidth',1,'Location','NorthEast');
 set(h_legend,'Interpreter','latex');
 
-xlabel('SNR(dB)');%横坐标标号
-ylabel('BER');%纵坐标标号
+labelsize = 28;
+xlabel('SNR(dB)','FontName','Times New Roman','FontSize',fontsize,'FontWeight','normal','Color','k','Interpreter','latex');%横坐标标号,坐标轴label字体、字体大小
+ylabel('WER','FontName','Times New Roman','FontSize',fontsize,'FontWeight','normal','Color','k','Interpreter','latex');%纵坐标标号，坐标轴label字体、字体大小
+%set(get(gca,'XLabel'),'FontSize',14);%图上文字为8 point或小5号
+%set(get(gca,'YLabel'),'FontSize',14);
 
 
 
-set(gcf,'color','white'); % 设置背景是白色的 原先是灰色的 论文里面不好看
-set(get(gca,'Children'),'linewidth',linewidth);%设置图中线宽
-set(gca, 'XTick', 0:0.5:11);  % 设置横坐标刻度值
-set(gca,'linewidth',2);       % 设置坐标轴粗细
-set(gca, 'FontSize',18)        % 设置坐标轴字体是 8
-set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
+set(gca, 'XTick', 0:0.5:11);  % 设置x坐标轴的刻度
+%set(gca, 'YTick',(0:2:32))   % 设置y坐标轴的刻度
+axis([0 2.5 1e-6 1]);         % 横纵坐标范围
+
+set(get(gca,'Children'),'linewidth',linewidth);   %设置图中线宽
+set(gca,'linewidth',1);       % 设置坐标轴粗细
+
+% set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 % set(get(gca,'Children'), 'MarkerEdgeColor','b', 'MarkerFaceColor','b');% 设置标记颜色,统一颜色。
-% axis([0 2.5 1e-6 1]);         % 横纵坐标范围
+
+
+set(gcf,'color','white');  % 设置背景是白色的 原先是灰色的 论文里面不好看
+
+
 
 % print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.eps');%保存为eps格式的图片color
 % exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER.pdf','ContentType','vector')
