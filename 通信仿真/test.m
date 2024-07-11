@@ -1,62 +1,68 @@
-clc;
 clear;
+clc;
 close all;
 
-%% *仿真正交相移键控（QPSK）调制的基带数字通信系统通过AWGN信道的误符号率（SER）和误比特率（BER），假设发射端信息比特采用Gray编码影射，基带脉冲采用矩形脉冲，仿真时每个脉冲的采样点数为8，接收端采用匹配滤波器进行相干解调。
+ 
+d0 = 51; % AP到IRS之间的距离
+dv = 2; % 两条竖线之间的距离
+% d = 50; % User和AP之间的水平距离
+% d1 = sqrt(d^2+dv^2); % AP到User之间的距离
+% d2 = sqrt((d0-d)^2+dv^2); % User到IRS之间的距离
+C0 = db2pow(-30); % 参考距离时的路损
+D0 = 1; % 参考距离
+sigmaK2 = db2pow(-80); % 噪声功率
+gamma = db2pow(10); % 信干噪比约束10dB
 
-% 代码如下：
-%
-%                    .::::.
-%                  .::::::::.
-%                 :::::::::::  
-%             ..:::::::::::'
-%           '::::::::::::'
-%             .::::::::::
-%        '::::::::::::::..
-%             ..::::::::::::.
-%           ``::::::::::::::::
-%            ::::``:::::::::'        .:::.
-%           ::::'   ':::::'       .::::::::.
-%         .::::'      ::::     .:::::::'::::.
-%        .:::'       :::::  .:::::::::' ':::::.
-%       .::'        :::::.:::::::::'      ':::::.
-%      .::'         ::::::::::::::'         ``::::.
-%  ...:::           ::::::::::::'              ``::.
-% ```` ':.          ':::::::::'                  ::::..
-%                    '.:::::'                    ':'````..
-%
-clear all
-nSamp=8;%矩形脉冲的采样点数
-numSymb=200000;%每种SNR下传输的符号数
-M=4;%QPSK的符号类型数
-SNR=-3:3;%SNR的范围
-grayencod=[0 1 3 2 ];%Gray编码格式
-for ii=1:length(SNR)
-    msg=randsrc(1,numSymb,[0:3]);%产生发送符号，1行numSymb列0-3的数。size(msg)=[1,200000]
-    msg_gr=grayencod(msg+1);%进行Gray编码影射（格雷码）,size(msg_gr)=[1,200000]
-    msg_tx=pskmod(msg_gr,M);%QPSK调制,size(msg_tx)=[1,200000]
-    msg_tx1=rectpulse(msg_tx,nSamp);%矩形脉冲成型,size(msg_gr1)=[1,1600000]
-    msg_rx=awgn(msg_tx1,SNR(ii),'measured');%通过AWGN信道,size(msg_rx)=[1,1600000]
-    msg_rx_down=intdump(msg_rx,nSamp);%匹配滤波相干解调,size(msg_rx_down)=[1,200000]
-    msg_gr_demod=pskdemod(msg_rx_down,M);%QPSK解调,size(msg_gr_demod)=[1,200000]
-    [dummy graydecod]=sort(grayencod);
-    graydecod=graydecod-1;
-    msg_demod=graydecod(msg_gr_demod+1);%Gray编码逆映射,size(msg_demod)=[1,200000]
-    [errorBit BER(ii)]=biterr(msg,msg_demod,log2(M));%计算BER
-    [errorSym SER(ii)]=symerr(msg,msg_demod);%计算SER
+L = @(d, alpha)C0*(d/D0)^(-alpha); % 路损模型
+
+% 路损参数
+alpha_AI = 2;
+alpha_Iu = 2.8;
+alpha_Au = 3.5; 
+beta_IU = 0; % IRS到User考虑瑞利衰落信道，AP和IRS之间为纯LoS信道
+
+% 天线数
+M = 3; % AP天线数
+N = 4; % IRS单元个数 
+
+G = sqrt(L(d0,alpha_AI))*ones(N,M);
+hr =  [[-5.52410927+5.11202098j,  2.21161698+3.83710666j,  -6.87020352+8.59078659j, -4.45867517-1.69307665j]];
+hd =  [[ 9.63447462-5.59241419j,  4.06630045-7.78999435j,  -0.60554468+3.04178728j]];
+
+
+Phi = diag(hr)*G;
+R = [Phi*Phi' Phi*hd'; hd*Phi' 0];
+cvx_begin sdp quiet
+    variable V(N+1,N+1) hermitian
+    maximize(real(trace(R*V))+norm(hd)^2);
+    subject to
+        diag(V) == 1;
+        V ==  hermitian_semidefinite(N+1);
+cvx_end
+
+lower_bound = cvx_optval
+
+L = 1000
+% 高斯随机化过程
+%% method 1
+max_F = 0;
+max_v = 0;
+[U, Sigma] = eig(V);
+for l = 1 : L
+    r = sqrt(2) / 2 * (randn(N+1, 1) + 1j * randn(N+1, 1));
+    v = U * Sigma^(0.5) * r;
+    if v' * R * v > max_F
+        max_v = v;
+        max_F = v' * R * v;
+    end
 end
 
-scatterplot(msg_tx(1:100))%画出发射信号星座图
-title('发射信号星座图')
-xlabel('同相分量')
-ylabel('正交分量')
-scatterplot(msg_rx(1:100))%画出接收信号星座图
-title('接收信号星座图')
-xlabel('同相分量')
-ylabel('正交分量')
-figure;
-semilogy(SNR,BER,'-r*',SNR,SER,'-r*')%画出BER和SER随SNR变化的曲线
-legend('BER','SER')
-title('QPSK在AWGN信道下的性能')
-xlabel('信噪比（dB）')
-ylabel('误符号率和误比特率')
+v = exp(1j * angle(max_v / max_v(end)));
+v = v(1 : N);
+
+P_opt = gamma/(norm(v'*(diag(hr)*G)+hd)^2)
+
+
+
+
+

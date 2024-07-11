@@ -353,8 +353,8 @@ set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 set(gcf,'color','white');  % 设置背景是白色的 原先是灰色的 论文里面不好看
 
 
-print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/figures/WER_payload.eps');%保存为eps格式的图片color
-exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/figures/WER_payload.pdf','ContentType','vector')
+%print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/figures/WER_payload.eps');%保存为eps格式的图片color
+%exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/figures/WER_payload.pdf','ContentType','vector')
 % saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
 
  

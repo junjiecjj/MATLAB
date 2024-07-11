@@ -1,4 +1,7 @@
-clear;clc;close all
+
+clear;
+clc;
+close all
 
 % https://ww2.mathworks.cn/help/matlab/ref/fftshift.html
 

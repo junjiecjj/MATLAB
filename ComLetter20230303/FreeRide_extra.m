@@ -3,7 +3,24 @@ clc;%清楚workspace的命令显示。
 
 
 
+
 %下面是数据
+
+% 5G LDPC 单独统计信息位的前2bit
+LDPC5GNoExtraBer2bit  = [
+0.000000 0.2190146266 0.3849114704
+0.250000 0.1686355582 0.2953337271
+0.500000 0.1020220588 0.1838235294
+0.750000 0.0439350525 0.0795924865
+1.000000 0.0114697480 0.0213192342
+1.250000 0.0017325478 0.0031673635
+1.500000 0.0001486809 0.0002688623
+1.750000 0.0000069787 0.0000127660
+2.000000 0.0000003115 0.0000006230
+];
+
+
+
 %第0组数据,没有额外比特
 LDPC5GNoExtraBer  = [
 0.000000 0.1600611772
@@ -50,8 +67,10 @@ LDPC5GFreeRideExtra1BitPayloadBerFer = [...
 0.500000 0.0902647746  0.7433074818
 0.750000 0.0411093734  0.3859320000
 1.000000 0.0111053406  0.1133065000
-1.250000 0.0016376776  0.0175820000
-1.500000 0.0001254078  0.0014485000
+% 1.250000 0.0016376776  0.0175820000
+% 1.500000 0.0001254078  0.0014485000
+1.250000 0.0016417010  0.0176497750
+1.500000 0.0001266064  0.0014556500
 1.750000 0.0000051437  0.0000755000
 2.000000 0.0000002755  0.0000090000
 % 2.500000 0.0000000026  0.0000010000
@@ -65,7 +84,8 @@ LDPC5GFreeRideExtra2BitExtraBerFer = [...
 0.500000  0.0039655110  0.0060634724
 0.750000  0.0006277281  0.0009383081
 1.000000  0.0000550000  0.0000770000
-1.250000  0.0000014822  0.0000020000
+1.250000  0.0000014500  0.0000020500
+% 1.250000  0.0000014822  0.0000020000
 1.500000  0.0000000000  0.0000000000
 ];
 
@@ -75,7 +95,8 @@ LDPC5GFreeRideExtra2BitPayloadBerFer = [...
 0.500000 0.0914873711  0.7425752780
 0.750000 0.0412932836  0.3859083010
 1.000000 0.0111733911  0.1136940000
-1.250000 0.0016257687  0.0175260000
+1.250000 0.0016431222  0.0176500000
+%1.250000 0.0016257687  0.0175260000
 1.500000 0.0001304365  0.0014870000
 1.750000 0.0000052276  0.0000810000
 ];
@@ -161,17 +182,37 @@ ColorSet = [...
 set(gcf, 'DefaultAxesColorOrder', ColorSet);%设置循环使用的颜色集合
 
 %纵坐标对数域，如果不需要对数改为plot
-semilogy(LDPC5GNoExtraFer(:,1), LDPC5GNoExtraFer(:,2), 'k--*', ...
-         LDPC5GFreeRideExtra1BitPayloadBerFer(:,1), LDPC5GFreeRideExtra1BitPayloadBerFer(:,3), 'g--s', ...
-         LDPC5GFreeRideExtra2BitPayloadBerFer(:,1), LDPC5GFreeRideExtra2BitPayloadBerFer(:,3), 'r--d', ...
-         LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3), 'b-x', ...
-         LDPC5GFreeRideExtra2BitExtraBerFer(:,1), LDPC5GFreeRideExtra2BitExtraBerFer(:,3), 'b-^');
+% semilogy(LDPC5GNoExtraFer(:,1), LDPC5GNoExtraFer(:,2), 'm--', ...
+%          LDPC5GFreeRideExtra1BitPayloadBerFer(:,1), LDPC5GFreeRideExtra1BitPayloadBerFer(:,3), 'k*', 'markersize',7,...
+%          LDPC5GFreeRideExtra2BitPayloadBerFer(:,1), LDPC5GFreeRideExtra2BitPayloadBerFer(:,3), 'ro', ...
+%          LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3), 'b-x', ...
+%          LDPC5GFreeRideExtra2BitExtraBerFer(:,1), LDPC5GFreeRideExtra2BitExtraBerFer(:,3), 'b-^');
+
+
+semilogy(LDPC5GNoExtraFer(:,1), LDPC5GNoExtraFer(:,2), 'm--','LineWidth',2)
+hold on;
+
+semilogy(LDPC5GFreeRideExtra1BitPayloadBerFer(:,1), LDPC5GFreeRideExtra1BitPayloadBerFer(:,3), 'k*', 'LineWidth',2, 'markersize',10)
+hold on;
+
+semilogy(LDPC5GFreeRideExtra2BitPayloadBerFer(:,1), LDPC5GFreeRideExtra2BitPayloadBerFer(:,3), 'ro', 'LineWidth',2, 'markersize',12)
+hold on;
+
+p2 = semilogy(LDPC5GNoExtraBer2bit(:,1), LDPC5GNoExtraBer2bit(:,3),   '--*', 'LineWidth',2, 'markersize',12)
+p2.Color = '#00841a';
+hold on;
+
+semilogy(LDPC5GFreeRideExtra1BitExtraBerFer(:,1), LDPC5GFreeRideExtra1BitExtraBerFer(:,3), 'b-d', 'LineWidth',2, 'markersize',10)
+hold on;
+
+semilogy(LDPC5GFreeRideExtra2BitExtraBerFer(:,1), LDPC5GFreeRideExtra2BitExtraBerFer(:,3), 'b-^', 'LineWidth',2, 'markersize',10)
+hold on;
 
 
 
 %---------------------------------------------------------
 hold on;
-grid on; 
+grid on;
 set(gca,'XMinorGrid','off'); % 关闭X轴的次网格
 set(gca,'XGrid','off','LineWidth',0.01); % 关闭X轴的网格
 set(gca,'gridlinestyle','--','Gridalpha',0.2,'LineWidth',0.01,'Layer','bottom');
@@ -183,15 +224,25 @@ scalesize = 28;
 set(gca, 'FontSize',fontsize,'FontName','Times New Roman');
 
 
-h_legend = legend('Payload data,without extra data', ...
-                  'Payload data, ${\ell}$=1',...
-                  'Payload data, ${\ell}$=2',...
-                  'Extra data, ${\ell}$=1',...
-                  'Extra data, ${\ell}$=2'...
+% h_legend = legend('Payload data,without extra data', ...
+%                   'Payload data, ${\ell}$=1',...
+%                   'Payload data, ${\ell}$=2',...
+%                   'Extra data, ${\ell}$=1',...
+%                   'Extra data, ${\ell}$=2',...
+%                   '2 bit'...
+%                   );  %图例，与上面的曲线先后对应
+
+h_legend = legend('Payload data, without extra data', ...
+                  'Payload data, Free-Ride, ${\ell}$=1',...
+                  'Payload data, Free-Ride, ${\ell}$=2',...
+                  'Extra data, traditional, ${\ell}$=2',...
+                  'Extra data, Free-Ride, ${\ell}$=1',...
+                  'Extra data, Free-Ride, ${\ell}$=2'...
                   );  %图例，与上面的曲线先后对应
-legendsize = 12;
+
+legendsize = 16;
 set(h_legend,'FontName','Times New Roman','FontSize',legendsize,'FontWeight','normal','LineWidth',1,'Location','NorthEast');
-set(h_legend,'Interpreter','latex');
+set(h_legend,'Interpreter','latex') %  'box','off');
 
 labelsize = 28;
 xlabel('SNR(dB)','FontName','Times New Roman','FontSize',fontsize,'FontWeight','normal','Color','k','Interpreter','latex');%横坐标标号,坐标轴label字体、字体大小
@@ -205,20 +256,20 @@ set(gca, 'XTick', 0:0.5:11);  % 设置x坐标轴的刻度
 %set(gca, 'YTick',(0:2:32))   % 设置y坐标轴的刻度
 axis([0 2.5 1e-7 1]);         % 横纵坐标范围
 
-set(get(gca,'Children'),'linewidth',linewidth);   %设置图中线宽
-set(gca,'linewidth',1);       % 设置坐标轴粗细
+% set(get(gca,'Children'),'linewidth',linewidth);   %设置图中线宽
+set(gca,'linewidth',1.5);       % 设置坐标轴粗细
 
-set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
+% set(get(gca,'Children'), 'markersize', markersize);  %设置标记大小
 % set(get(gca,'Children'), 'MarkerEdgeColor','b', 'MarkerFaceColor','b');% 设置标记颜色,统一颜色。
 
 
 set(gcf,'color','white');  % 设置背景是白色的 原先是灰色的 论文里面不好看
 
 
+% 
+% print(figure(1), '-depsc', '/home/jack/文档/中山大学/00 我的论文/SemanticFreeRide_GlobeCom/Figures/Fig5.pdf');%保存为eps格式的图片color
+exportgraphics(figure(1),'/home/jack/文档/中山大学/00 我的论文/2023/FreeRide_semantic_WCNC/SemanticFreeRide_WCNC_submit/Figures/Fig5_111.eps','ContentType','vector')
+% % saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
+% 
 
-print(figure(1), '-depsc', '/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_extraPay.eps');%保存为eps格式的图片color
-exportgraphics(figure(1),'/home/jack/文档/中山大学/SemanticFreeRide/Figures/WER_extraPay.pdf','ContentType','vector')
-% saveas(figure(1), '/home/jack/公共的/MATLAB/ComLetter20230303/WER1.pdf','pdf');
-
- 
 
