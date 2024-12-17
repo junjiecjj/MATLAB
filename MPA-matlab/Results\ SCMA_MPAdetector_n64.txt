@@ -1,0 +1,140 @@
+
+
+程序开始时间：2024-11-02 14:42:08 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-02 16:31:43 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-03 16:04:16 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-03 20:04:39 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-04 11:21:22 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-05 16:31:58 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-06 16:53:08 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-07 16:10:34 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-07 16:15:26 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-07 16:19:50 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-07 16:20:15 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-07 17:12:39 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 11:04:39 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 11:06:12 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:03:35 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:04:08 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:04:34 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:05:18 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:05:28 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-11-10 15:05:39 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 5  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks

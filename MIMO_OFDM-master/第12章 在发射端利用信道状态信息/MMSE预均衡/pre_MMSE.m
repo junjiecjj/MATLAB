@@ -3,12 +3,12 @@
 %MIMO-OFDM Wireless Communications with MATLAB¢ç   Yong Soo Cho, Jaekwon Kim, Won Young Yang and Chung G. Kang
 %2010 John Wiley & Sons (Asia) Pte Ltd
 
-clear all; clf
+clear;clc;close all
 %%%%%% Parameter Setting %%%%%%%%%
 N_frame=100;  N_packet=1000;
-b=2; M=2^b;  % Number of bits per symbol and Modulation order
-mod_obj = modem.qammod('M', M, 'SymbolOrder', 'Gray', 'InputType', 'bit');
-demod_obj = modem.qamdemod(mod_obj);
+b=4; M=2^b;  % Number of bits per symbol and Modulation order
+%mod_obj = modem.qammod('M', M, 'SymbolOrder', 'Gray', 'InputType', 'bit');
+%demod_obj = modem.qamdemod(mod_obj);
 NT=4;  NR=4;  sq2=sqrt(2);  I=eye(NR,NR);
 N_pbits = N_frame*NT*b; 
 N_tbits = N_pbits*N_packet;
@@ -25,10 +25,11 @@ for i_SNR=1:length(SNRdBs)
    rand('seed',1); randn('seed',1);  N_ebits = 0; 
    %%%%%%%%%%%%% Transmitter %%%%%%%%%%%%%%%%%%
    for i_packet=1:N_packet
-      msg_bit = randint(N_pbits,1); % bit generation
-      symbol = modulate(mod_obj,msg_bit).';
-      Scale = modnorm(symbol,'avpow',1); % normalization
-      Symbol_nomalized = reshape(Scale*symbol,NT,N_frame); 
+      msg_bit = randi([0,1], N_pbits, 1); % bit generation
+      %symbol = modulate(mod_obj,msg_bit).';
+      symbol = qammod(msg_bit , M , 'gray' , 'InputType' , 'bit','UnitAveragePower', true);
+      %Scale = modnorm(symbol,'avpow',1); % normalization
+      Symbol_nomalized = reshape(symbol, NT, N_frame); 
       H = (randn(NR,NT)+j*randn(NR,NT))/sq2;
       temp_W = H'*inv(H*H'+noise_var*I); 
       beta = sqrt(NT/trace(temp_W*temp_W')); % Eq.(12.17)
@@ -38,8 +39,9 @@ for i_SNR=1:length(SNRdBs)
       Rx_signal = H*Tx_signal+sigma*(randn(NR,N_frame)+j*randn(NR,N_frame));
       %%%%%%%%%%%%%% Receiver %%%%%%%%%%%%%%%%%%%%%
       y = Rx_signal/beta; % Eq.(12.18)
-      Symbol_hat = reshape(y/Scale,NT*N_frame,1);
-      msg_hat = demodulate(demod_obj,Symbol_hat);
+      Symbol_hat = reshape(y,NT*N_frame,1);
+      % msg_hat = demodulate(demod_obj,Symbol_hat);
+      msg_hat = qamdemod(Symbol_hat , M , 'bin',OutputType='bit', UnitAveragePower=true);
       N_ebits = N_ebits + sum(msg_hat~=msg_bit);
    end
    BER(i_SNR) = N_ebits/N_tbits;
@@ -47,3 +49,7 @@ end
 semilogy(SNRdBs,BER,'-k^','LineWidth',2); hold on; grid on;
 xlabel('SNR[dB]'), ylabel('BER');
 legend('Pre-MMSE transmission')
+
+
+
+

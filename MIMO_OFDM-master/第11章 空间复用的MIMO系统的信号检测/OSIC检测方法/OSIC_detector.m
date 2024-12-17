@@ -11,9 +11,6 @@ function [X_hat]=OSIC_detector(y,H,sigma2,nT,OSIC_type)
 % Output parameter
 %   X_hat : Estimated signal,nTx1
 
-%MIMO-OFDM Wireless Communications with MATLAB¢ç   Yong Soo Cho, Jaekwon Kim, Won Young Yang and Chung G. Kang
-%2010 John Wiley & Sons (Asia) Pte Ltd
-
 if OSIC_type==1  % Post_detection_SINR
   Order=[];  % detection order
   index_array=[1:nT]; % yet to be detected signal index
@@ -23,8 +20,7 @@ if OSIC_type==1  % Post_detection_SINR
      WmmseH=Wmmse*H;
      SINR=[];
      for i =1:nT-(stage-1)
-        tmp= norm(WmmseH(i,[1:i-1 i+1:nT-(stage-1)]))^2 ...
-              + sigma2*norm(Wmmse(i,:))^2;
+        tmp= norm(WmmseH(i,[1:i-1 i+1:nT-(stage-1)]))^2 + sigma2*norm(Wmmse(i,:))^2;
         SINR(i)=abs(WmmseH(i,i))^2/tmp; % SINR calculation
      end
      [val_max,index_temp] = max(SINR);    % ordering using SINR
@@ -42,8 +38,8 @@ elseif OSIC_type==2 % column_norm ordering detection
   G = inv(H);           % inverse of H
   for i=1:nT            % column_norm calculation
      norm_array(i) = norm(H(:,i));
-  end 
-  [sorted_norm_array,Order_temp] = sort(norm_array); 
+  end
+  [sorted_norm_array,Order_temp] = sort(norm_array);
   Order = wrev(Order_temp);
   % V-BLAST
   for stage=1:nT
@@ -52,7 +48,7 @@ elseif OSIC_type==2 % column_norm ordering detection
       y_tilde = y-H(:,Order(stage))*X_hat(Order(stage)); 
   end
 else % OSIC with Post_detection_SNR ordering
-  Order=[];   
+  Order=[];
   index_array=[1:nT]; % set of indices of signals to be detected
   % V-BLAST
   for stage=1:nT
@@ -72,3 +68,9 @@ else % OSIC with Post_detection_SNR ordering
   end
   X_hat(Order) = X_hat;
 end
+
+
+
+
+
+

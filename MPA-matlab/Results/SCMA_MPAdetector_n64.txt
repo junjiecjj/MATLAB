@@ -1,0 +1,14 @@
+
+
+程序开始时间：2024-10-10 17:28:37 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks
+
+
+程序开始时间：2024-10-10 17:33:25 
+n = 64  
+K = 4  J = 6  M = 4  iter_detector = 6  
+max_runs = 1.00e+12  max_err = 300  display_interval = 10  
+Eb/N0BER          SER            BLER         total_blocks

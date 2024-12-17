@@ -1,0 +1,21 @@
+
+
+程序开始时间：2024-11-10 11:08:37 
+n = 256  encoding_scheme = LDPC  Decoder = Joint_estimation_SISO_OSD_decoder  
+K = 4  J = 6  M = 4  iter_all = 3  iter_detector = 3  
+max_runs = 1.00e+12  max_err = 50  display_interval = 1  
+Eb/N0        BER          BLER           ave_test_num         total_blocks
+
+
+程序开始时间：2024-11-10 11:09:01 
+n = 256  encoding_scheme = LDPC  Decoder = Joint_estimation_SISO_OSD_decoder  
+K = 4  J = 6  M = 4  iter_all = 3  iter_detector = 3  
+max_runs = 1.00e+12  max_err = 50  display_interval = 1  
+Eb/N0        BER          BLER           ave_test_num         total_blocks
+
+
+程序开始时间：2024-11-10 11:09:14 
+n = 256  encoding_scheme = LDPC  Decoder = Joint_estimation_SISO_OSD_decoder  
+K = 4  J = 6  M = 4  iter_all = 3  iter_detector = 3  
+max_runs = 1.00e+12  max_err = 50  display_interval = 1  
+Eb/N0        BER          BLER           ave_test_num         total_blocks

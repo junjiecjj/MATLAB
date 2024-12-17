@@ -250,3 +250,8 @@ semilogy(SNR,ber,'linewidth',1);
 grid on;
 xlabel('SNR (dB)');
 ylabel('BER'); 
+
+
+
+
+
